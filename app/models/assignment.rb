@@ -1,4 +1,4 @@
- class Assignment < ActiveRecord::Base
+class Assignment < ActiveRecord::Base
   # get modules to help with some functionality
   include CreameryHelpers::Validations
 
