@@ -11,6 +11,12 @@
   </head>
 
   <body>
+    <% if logged_in? %>
+    <%= link_to 'Logout', logout_path %>
+    <br>[<%= current_user.proper_name %>:<%= current_user.role %>]
+  <% else %>
+    <%= link_to 'Login', login_path %>
+  <% end %>
     <div id="title_area">
       <%= link_to image_tag('creamery_title.png'), home_path %>
     </div>
