@@ -13,7 +13,7 @@
   <body>
     <% if logged_in? %>
     <%= link_to 'Logout', logout_path %>
-    <br>[<%= current_user.proper_name %>:<%= current_user.role %>]
+    <br>[<%= current_user.email %>:<%= current_user.email %>]
   <% else %>
     <%= link_to 'Login', login_path %>
   <% end %>
