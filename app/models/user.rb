@@ -14,8 +14,18 @@ class User < ActiveRecord::Base
 
   def self.authenticate(email,password)
         find_by_email(email).try(:authenticate, password)
-    end
+  end
   
+  #NEED TO WRITE AND TEST A ROLE METHOD
+
+  # for use in authorizing with CanCan
+  ROLES = [['Administrator', :admin],['Manager', :manager], ['Employee', :employee]]
+
+  def role?(authorized_role)
+    return false if (self.employee.nil? || self.employee.role.nil?)
+    #role.downcase.to_sym == authorized_role
+  end
+
   private
   def employee_is_active_in_system
     is_active_in_system(:employee)

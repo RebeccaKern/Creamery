@@ -11,6 +11,7 @@ class StoresController < ApplicationController
   end
 
   def new
+    authorize! :new, @store
     @store = Store.new
   end
 
@@ -30,6 +31,7 @@ class StoresController < ApplicationController
   def update
     if @store.update(store_params)
       redirect_to store_path(@store), notice: "Successfully updated #{@store.name}."
+      authorize! :update, @store
     else
       render action: 'edit'
     end
@@ -38,6 +40,7 @@ class StoresController < ApplicationController
   def destroy
     @store.destroy
     redirect_to stores_path, notice: "Successfully removed #{@store.name} from the AMC system."
+    authorize! :destroy, @store
   end
 
   private
