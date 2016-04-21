@@ -6,6 +6,7 @@ class FlavorsController < ApplicationController
   end
 
   def new
+    authorize! :new, @flavor
     @flavor = Flavor.new
   end
 
@@ -28,11 +29,13 @@ class FlavorsController < ApplicationController
     else
       render action: 'edit'
     end
+    authorize! :update, @flavor
   end
 
   def destroy
     @flavor.destroy
     redirect_to flavors_path, notice: "Successfully removed #{@flavor.name} from the AMC system."
+    authorize! :destroy, @flavor
   end
 
   private

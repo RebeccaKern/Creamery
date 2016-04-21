@@ -13,6 +13,7 @@ class AssignmentsController < ApplicationController
   # end
 
   def new
+    authorize! :new, @assignment
     @assignment = Assignment.new
     # if params[:from].nil?
     #   if params[:id].nil?
@@ -50,11 +51,13 @@ class AssignmentsController < ApplicationController
     else
       render action: 'edit'
     end
+    authorize! :update, @assignment
   end
 
   def destroy
     @assignment.destroy
     redirect_to assignments_path, notice: "Successfully removed #{@assignment.employee.proper_name} from #{@assignment.store.name}."
+    authorize! :destroy, @assignment
   end
 
   private

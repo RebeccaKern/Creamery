@@ -6,6 +6,7 @@ class ShiftsController < ApplicationController
   end
 
   def new
+    authorize! :new, @shift
     @shift = Shift.new
   end
 
@@ -28,11 +29,13 @@ class ShiftsController < ApplicationController
     else
       render action: 'edit'
     end
+    authorize! :update, @shift
   end
 
   def destroy
     @shift.destroy
     redirect_to shifts_path, notice: "Successfully removed #{@shift.name} from the AMC system."
+    authorize! :destroy, @shift
   end
 
   private

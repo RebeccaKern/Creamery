@@ -6,6 +6,7 @@ class JobsController < ApplicationController
   end
 
   def new
+    authorize! :new, @job
     @job = Job.new
   end
 
@@ -28,11 +29,13 @@ class JobsController < ApplicationController
     else
       render action: 'edit'
     end
+    authorize! :update, @job
   end
 
   def destroy
     @job.destroy
     redirect_to jobs_path, notice: "Successfully removed #{@job.name} from the AMC system."
+    authorize! :destroy, @job
   end
 
   private
