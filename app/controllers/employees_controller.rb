@@ -1,21 +1,34 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
+  #authorize_resource
   
   def index
-    authorize! :index, @employee
-    @active_employees = Employee.active.alphabetical.paginate(page: params[:page]).per_page(10)
-    @inactive_employees = Employee.inactive.alphabetical.paginate(page: params[:page]).per_page(10)
+    if current_user && current_user.role?(:admin)
+      @active_employees = Employee.active.alphabetical.paginate(page: params[:page]).per_page(10)
+      @inactive_employees = Employee.inactive.alphabetical.paginate(page: params[:page]).per_page(10)
+    elsif current_user && current_user.role?(:manager)
+      mgr_store = current_user.employee.current_assignment.store
+      @assignments = mgr_store.assignments.current.paginate(page: params[:page]).per_page(10)
+      @active_employees = @assignments.map{|a| a.employee}
+      #@active_employees = employees.paginate(page: params[:page]).per_page(10)
+      #@active_employees.include?(this_employee)
+    #   # @active_employees = current_user.employee.current_assignment
+    #   # Employee.active.alphabetical.paginate(page: params[:page]).per_page(10)
+      @inactive_employees = []
+    else
+      @active_employees = []#Employee.active.alphabetical.paginate(page: params[:page]).per_page(10)#[] #Employee.active.alphabetical.paginate(page: params[:page]).per_page(10)
+      @inactive_employees = [] #Employee.inactive.alphabetical.paginate(page: params[:page]).per_page(10)
+      end
+
   end
 
   def show
-    authorize! :show, @employee
     # get the assignment history for this employee
     @assignments = @employee.assignments.chronological.paginate(page: params[:page]).per_page(5)
     # get upcoming shifts for this employee (later)  
   end
 
   def new
-    authorize! :new, @employee
     @employee = Employee.new
   end
 
@@ -38,13 +51,11 @@ class EmployeesController < ApplicationController
     else
       render action: 'edit'
     end
-    authorize! :update, @employee
   end
 
   def destroy
     @employee.destroy
     redirect_to employees_path, notice: "Successfully removed #{@employee.proper_name} from the AMC system."
-    authorize! :update, @employee
   end
 
   private

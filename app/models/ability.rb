@@ -8,18 +8,24 @@ class Ability
         can :manage, :all
 
     elsif user.role? :manager
-      # can see a list of their employees
-      # can edit employee information
-      # can see a list of their shifts
-      # can update shifts in the system
-      # can see a list of the store flavors
-      # can update a list of their flavors
-      # edit store data
+        can :read, Store
+        can :read, Flavor
+        can :read, Job
 
-      # can read their employee profiles
-      can :read, Employee do |this_employee|
-        managed_employees = user.employees.map{|e| e.id if e.store_id == user.store.id}
-        managed_employees.include? this_project.id
+      can :index, Employee
+
+      can :show, Employee do |this_employee|
+        mgr_store = user.employee.current_assignment.store
+        current_employees = mgr_store.assignments.current.map{|a| a.employee}
+        current_employees.include?(this_employee)
+      end 
+
+      can :index, Assignment
+      
+      can :show, Assignment do |this_assignment|
+        mgr_store = user.employee.current_assignment.store
+        store_assignments = mgr_store.assignments.current.map{|a| a}
+        store_assignments.include?(this_assignment)
       end 
 
       # they can update their employee profiles
@@ -43,9 +49,6 @@ class Ability
       # can create shifts for their store
       can :create, Shift
 
-      # they can read flavors
-      can :read, Flavor
-
       # can update flavors for their store
       can :update, Flavor do |this_flavor|
         managed_flavors = user.employee.assignment.store.flavors.map{|s| s.id if s.store_flavor.store_id == user.store_id}
@@ -54,10 +57,26 @@ class Ability
 
       # can create flavors for their store
       can :create, Flavor
+      # can see a list of their employees
+      # can edit employee information
+      # can see a list of their shifts
+      # can update shifts in the system
+      # can see a list of the store flavors
+      # can update a list of their flavors
+      # edit store data
 
-      can :read, Job 
+      # can read their employee profiles
 
     elsif user.role? :employee
+      can :read, Store
+      can :read, Job 
+      can :read, Flavor
+
+      # only for them individually
+      can :read, Employee
+      can :read, Assignment
+      can :read, Shift
+
       # see their personal information
 
       # they can read their own profile
@@ -71,8 +90,6 @@ class Ability
         my_shifts.include? this_shift.id 
       end
 
-      can :read, Job 
-
       # start their shift and end their shift
       can :update, Shift do |shift|  
         employee_shifts = user.employee.shifts.map(&:id)
@@ -81,7 +98,7 @@ class Ability
 
     else
       # guests can only read domains covered (plus home pages)
-      #can :read, Store
+      can :read, Store
       #can :read, Flavor
     end
 

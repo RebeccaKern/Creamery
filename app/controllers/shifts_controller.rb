@@ -1,5 +1,6 @@
 class ShiftsController < ApplicationController
   before_action :set_shift, only: [:show, :edit, :update, :destroy]
+  authorize_resource
 
   def show
     @current_shifts = @shift.upcoming.by_employee.paginate(page: params[:page]).per_page(8)
