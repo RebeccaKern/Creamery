@@ -37,6 +37,11 @@ module NavigationHelpers
     when /the new assignment page/
       new_assignment_path
 
+    when /the shifts index page/ 
+      shifts_path
+    when /the new shift page/
+      new_shift_path
+
     # Paths for level_4 features
     when /the Bistro details\s?page/
       store_path(@bistro)
