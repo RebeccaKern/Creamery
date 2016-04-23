@@ -28,44 +28,33 @@ class Ability
         store_assignments.include?(this_assignment)
       end 
 
-      # they can update their employee profiles
-      can :update, User do |u|  
-        managed_employees = user.employees.map{|e| e.id if e.store_id == user.store.id}
-        managed_employees.include? this_project.id
-      end
+      can :index, Shift
       
-      # they can read shifts for their store
-      can :read, Shift do |this_shift|  
-        store_shifts = user.shifts.map(&:id)
-        store_shifts.include? this_shift.id 
+      can :show, Shift do |this_shift|
+        mgr_store = user.employee.current_assignment.store
+        store_assignments = mgr_store.assignments.current.map{|a| a}
+        store_shifts = store_assignments.map{|s| s.shifts}
+        store_shifts.include?(this_shift)
+      end 
+
+      # can create shifts for their employees
+      can :create, Shift do |this_shift|
+        mgr_store = user.employee.current_assignment.store
+        store_assignments = mgr_store.assignments.current.map{|a| a}
+        store_assignments.include? this_shift.assignment
       end
 
-      # can update shifts for their store
       can :update, Shift do |this_shift|
-        managed_shifts = user.employee.assignment.store.shifts.map{|s| s.id if s.store_id == user.store_id}
-        managed_shifts.include? this_shift.id
+        mgr_store = user.employee.current_assignment.store
+        store_assignments = mgr_store.assignments.current.map{|a| a}
+        store_assignments.include? this_shift.assignment
       end
 
-      # can create shifts for their store
-      can :create, Shift
-
-      # can update flavors for their store
-      can :update, Flavor do |this_flavor|
-        managed_flavors = user.employee.assignment.store.flavors.map{|s| s.id if s.store_flavor.store_id == user.store_id}
-        managed_flavors.include? this_flavor.id
+      can :destroy, Shift do |this_shift|
+        mgr_store = user.employee.current_assignment.store
+        store_assignments = mgr_store.assignments.current.map{|a| a}
+        store_assignments.include? this_shift.assignment
       end
-
-      # can create flavors for their store
-      can :create, Flavor
-      # can see a list of their employees
-      # can edit employee information
-      # can see a list of their shifts
-      # can update shifts in the system
-      # can see a list of the store flavors
-      # can update a list of their flavors
-      # edit store data
-
-      # can read their employee profiles
 
     elsif user.role? :employee
       can :read, Store
@@ -73,18 +62,26 @@ class Ability
       can :read, Flavor
 
       # only for them individually
-      can :read, Employee
-      can :read, Assignment
-      can :read, Shift
+      can :read, Employee do |e|
+        e.id == user.employee_id
+      end
 
-      # see their personal information
+      can :update, Employee do |e|
+        e.id == user.employee_id
+      end
 
-      # they can read their own profile
-      can :show, User do |u|  
+      can :read, User do |u|  
         u.id == user.id
       end
 
-      # see worked shifts and jobs and future shifts
+      can :update, User do |u|  
+        u.id == user.id
+      end
+
+      can :read, Assignment do |a|
+        a.id == user.employee.assignment_id
+      end
+
       can :read, Shift do |this_shift|  
         my_shifts = user.employee.shifts.map(&:id)
         my_shifts.include? this_shift.id 
@@ -98,7 +95,11 @@ class Ability
 
     else
       # guests can only read domains covered (plus home pages)
-      can :read, Store
+      can :read, Store do |this_store|
+        active_stores = Store.active.map(&:id)
+        active_stores.include? this_store.id
+      end
+
       #can :read, Flavor
     end
 
