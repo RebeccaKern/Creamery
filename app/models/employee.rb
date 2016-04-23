@@ -31,6 +31,7 @@ class Employee < ActiveRecord::Base
   scope :managers,        -> { where(role: 'manager') }
   scope :admins,          -> { where(role: 'admin') }
   scope :alphabetical,    -> { order('last_name, first_name') }
+  scope :by_store,        -> (store_id) { joins(:assignment).where("store_id = ?", store_id).where(end_date: nil) }
   
   # Other methods
   def name

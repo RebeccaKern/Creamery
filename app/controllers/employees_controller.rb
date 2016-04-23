@@ -3,21 +3,22 @@ class EmployeesController < ApplicationController
   #authorize_resource
   
   def index
-    # if current_user && current_user.role?(:admin)
+    if current_user && current_user.role?(:admin)
       @active_employees = Employee.active.alphabetical.paginate(page: params[:page]).per_page(10)
       @inactive_employees = Employee.inactive.alphabetical.paginate(page: params[:page]).per_page(10)
-    # elsif current_user && current_user.role?(:manager)
-    #   mgr_store = current_user.employee.current_assignment.store
-    #   @assignments = mgr_store.assignments.current.paginate(page: params[:page]).per_page(10)
-    #   @active_employees = @assignments.map{|a| a.employee}
-    #   @inactive_employees = []
-    # elsif current_user && current_user.role?(:employee)
-    #   @active_employees = current_user.employee
-    #   @inactive_employees = []
-    # else
-    #   @active_employees = []
-    #   @inactive_employees = [] 
-    #   end
+    elsif current_user && current_user.role?(:manager)
+      mgr_store = current_user.employee.current_assignment.store
+      #@assignments = mgr_store.assignments.current.paginate(page: params[:page]).per_page(10)
+      @active_employees = by_store(mgr_store).paginate(page: params[:page]).per_page(10)
+      #@assignments.map{|a| a.employee}
+      @inactive_employees = []
+    elsif current_user && current_user.role?(:employee)
+      @active_employees = current_user.employee
+      @inactive_employees = []
+    else
+      @active_employees = []
+      @inactive_employees = [] 
+    end
 
   end
 
