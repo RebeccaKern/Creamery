@@ -1,0 +1,21 @@
+<h3>Shifts</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th class="centered">Start Time</th>
+      <th class="centered">End Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @current_shifts.each do |shift| %>
+      <tr>
+        <td><%= shift.date %></td>
+        <td class="centered"><%= shift.start_time%></td>
+        <td class="centered"><%= shift.end_time%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @current_shifts, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+
