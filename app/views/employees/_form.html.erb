@@ -2,9 +2,7 @@
   <fieldset>
     <legend><%= controller.action_name.capitalize %> Employee</legend>
 
-    <%= f.input :first_name, input_html: {class: "avg"} %>
-    <%= f.input :last_name, input_html: {class: "avg"} %>
-    <%= f.input :ssn, input_html: {class: "avg"} %>
+   
     <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 13,
                               end_year: Date.today.year - 90,
                               order: [:month, :day, :year], include_blank: true, input_html: {class: "avg"} %>
@@ -12,6 +10,16 @@
     <%= f.input :phone, input_html: {class: "avg"} %>
     <%= f.input :role, collection: Employee::ROLES_LIST, include_blank: true, input_html: {class: "avg"} %>
     <%= f.input :active %>
+
+    <div class="span5">
+      <legend>User for this employee</legend>
+      <%= simple_form_for @user, html: { class: 'form-horizontal' } do |u| %>
+          <%= u.input :email, input_html: {class: "avg"} %>
+          <%= u.input :password, input_html: {class: "avg"} %>
+          <%= u.input :password_confirmation, input_html: {class: "avg"} %>
+          <% end %>
+      </div>
+    </div>
 
     <div class="form-actions">
       <%= f.submit nil, :class => 'button radius' %>

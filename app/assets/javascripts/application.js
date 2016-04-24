@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require foundation.min
 //= require_tree .
+//= require jquery_nested_form
 
 $(function() {
   $(document).foundation('topbar', 'reflow');
