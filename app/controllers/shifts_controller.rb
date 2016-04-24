@@ -11,7 +11,6 @@ class ShiftsController < ApplicationController
   end
 
   def new
-    authorize! :new, @shift
     @shift = Shift.new
   end
 
@@ -34,13 +33,11 @@ class ShiftsController < ApplicationController
     else
       render action: 'edit'
     end
-    authorize! :update, @shift
   end
 
   def destroy
     @shift.destroy
     redirect_to shifts_path, notice: "Successfully removed #{@shift.name} from the AMC system."
-    authorize! :destroy, @shift
   end
 
   private
@@ -49,7 +46,7 @@ class ShiftsController < ApplicationController
   end
 
   def shift_params
-    params.require(:shift).permit(:date, :assignment_id, :start_time, :notes)
+    params.require(:shift).permit(:date, :assignment_id, :start_time, :notes, :job_ids => [])
   end
 
 end

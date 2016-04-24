@@ -1,6 +1,6 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
-  #authorize_resource
+  authorize_resource
   
   def index
     if current_user && current_user.role?(:admin)
@@ -9,12 +9,13 @@ class EmployeesController < ApplicationController
     elsif current_user && current_user.role?(:manager)
       mgr_store = current_user.employee.current_assignment.store
       #@assignments = mgr_store.assignments.current.paginate(page: params[:page]).per_page(10)
-      @active_employees = by_store(mgr_store).paginate(page: params[:page]).per_page(10)
+      #@active_employees = []
+      @active_employees = Employee.by_store(mgr_store).paginate(page: params[:page]).per_page(10)
       #@assignments.map{|a| a.employee}
       @inactive_employees = []
-    elsif current_user && current_user.role?(:employee)
-      @active_employees = current_user.employee
-      @inactive_employees = []
+    # elsif current_user && current_user.role?(:employee)
+    #    @active_employees = []#current_user.employee
+    #    @inactive_employees = []
     else
       @active_employees = []
       @inactive_employees = [] 

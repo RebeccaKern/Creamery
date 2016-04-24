@@ -1,12 +1,12 @@
 class JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
+  authorize_resource
 
   def show
     @current_jobs = @job.active.alphabetical.paginate(page: params[:page]).per_page(8)
   end
 
   def new
-    authorize! :new, @job
     @job = Job.new
   end
 
@@ -29,13 +29,11 @@ class JobsController < ApplicationController
     else
       render action: 'edit'
     end
-    authorize! :update, @job
   end
 
   def destroy
     @job.destroy
     redirect_to jobs_path, notice: "Successfully removed #{@job.name} from the AMC system."
-    authorize! :destroy, @job
   end
 
   private
