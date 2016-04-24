@@ -10,8 +10,8 @@ class AssignmentsController < ApplicationController
 
   def index
     if current_user && current_user.role?(:admin)
-      @active_employees = Employee.active.alphabetical.paginate(page: params[:page]).per_page(10)
-      @inactive_employees = Employee.inactive.alphabetical.paginate(page: params[:page]).per_page(10)
+      @current_assignments = Assignment.current.by_store.by_employee.chronological.paginate(page: params[:page]).per_page(15)
+      @past_assignments = Assignment.past.by_employee.by_store.paginate(page: params[:page]).per_page(15)  
     elsif current_user && current_user.role?(:manager)
       mgr_store = current_user.employee.current_assignment.store
       @current_assignments = mgr_store.assignments.current.paginate(page: params[:page]).per_page(10)
@@ -19,8 +19,7 @@ class AssignmentsController < ApplicationController
     else
       @current_assignments = []#Employee.active.alphabetical.paginate(page: params[:page]).per_page(10)#[] #Employee.active.alphabetical.paginate(page: params[:page]).per_page(10)
       @past_assignments = [] #Employee.inactive.alphabetical.paginate(page: params[:page]).per_page(10)
-      end
-
+    end
   end
 
   # def show

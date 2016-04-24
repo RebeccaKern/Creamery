@@ -1,0 +1,3 @@
+<% unless @active_flavors.empty? %>
+  <%= render partial: "flavor_list", locals: {flavors: @active_flavors, state: 'active'} %>
+<% end %>

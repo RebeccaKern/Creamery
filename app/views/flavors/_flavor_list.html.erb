@@ -1,0 +1,27 @@
+<% if flavors.empty? %>
+  <p><em>There are no <%= state %> flavors at this time.</em></p>
+<% else %>
+  <h3><%= state.capitalize %> Flavors</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% flavors.each do |flavor| %>
+        <tr>
+          <td><%= flavor.name %></td>
+          <td>
+            <%= link_to(edit_flavor_path(flavor), class: 'button tiny radius warning') do %>
+              &nbsp;Edit&nbsp;
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate flavors, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>  
+<% end %>
+<p>&nbsp;</p>

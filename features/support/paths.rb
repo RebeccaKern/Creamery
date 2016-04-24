@@ -42,6 +42,11 @@ module NavigationHelpers
     when /the new shift page/
       new_shift_path
 
+    when /the flavors index page/ 
+      flavors_path
+    when /the new flavor page/
+      new_flavor_path
+
     # Paths for level_4 features
     when /the Bistro details\s?page/
       store_path(@bistro)
