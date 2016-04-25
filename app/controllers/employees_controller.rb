@@ -31,11 +31,11 @@ class EmployeesController < ApplicationController
 
   def new
     @employee = Employee.new
-    @user = User.new
-    #@employee.u.build
+    user = @employee.build_user
   end
 
   def edit
+    # fix so that you edit somebody that doesn't have a user
   end
 
   def create

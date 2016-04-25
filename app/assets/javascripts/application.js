@@ -19,3 +19,10 @@
 $(function() {
   $(document).foundation('topbar', 'reflow');
 });
+
+// Datepicker code
+$(function() {
+  $(".datepicker").datepicker({
+    format: 'mm/dd/YYYY'
+  });
+});
