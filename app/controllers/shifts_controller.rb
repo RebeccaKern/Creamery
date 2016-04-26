@@ -29,7 +29,7 @@ class ShiftsController < ApplicationController
 
   def update
     if @shift.update(shift_params)
-      redirect_to shift_path(@shift), notice: "Successfully updated #{@shift.name}."
+      redirect_to shift_path(@shift), notice: "Successfully updated #{@shift.employee.name}'s shift."
     else
       render action: 'edit'
     end
@@ -37,12 +37,12 @@ class ShiftsController < ApplicationController
 
   def destroy
     @shift.destroy
-    redirect_to shifts_path, notice: "Successfully removed #{@shift.name} from the AMC system."
+    redirect_to shifts_path, notice: "Successfully removed #{@shift.employee.name}'s shift from the AMC system."
   end
 
   private
   def set_shift
-    @shift = shift.find(params[:id])
+    @shift = Shift.find(params[:id])
   end
 
   def shift_params
