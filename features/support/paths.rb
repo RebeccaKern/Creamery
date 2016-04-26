@@ -46,6 +46,15 @@ module NavigationHelpers
       flavors_path
     when /the new flavor page/
       new_flavor_path
+    when /edit the chocolate flavor/
+      edit_flavor_path(@chocolate)
+
+    when /the jobs index page/ 
+      jobs_path
+    when /the new job page/
+      new_job_path
+     when /edit the cashier flavor/
+      edit_job_path(@cashier)
 
     # Paths for level_4 features
     when /the Bistro details\s?page/

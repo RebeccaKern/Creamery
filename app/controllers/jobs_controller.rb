@@ -2,9 +2,15 @@ class JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
   authorize_resource
 
-  def show
-    @current_jobs = @job.active.alphabetical.paginate(page: params[:page]).per_page(8)
+  def index
+    @current_jobs = Job.active.alphabetical.paginate(page: params[:page]).per_page(8)
+    @past_jobs = Job.inactive.alphabetical.paginate(page: params[:page]).per_page(8)
   end
+
+  # def show
+  #   @current_jobs = @job.active.alphabetical.paginate(page: params[:page]).per_page(8)
+  #   @past_jobs = @job.inactive.alphabetical.paginate(page: params[:page]).per_page(8)
+  # end
 
   def new
     @job = Job.new
@@ -38,7 +44,7 @@ class JobsController < ApplicationController
 
   private
   def set_job
-    @job = job.find(params[:id])
+    @job = Job.find(params[:id])
   end
 
   def job_params

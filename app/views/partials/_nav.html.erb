@@ -41,6 +41,15 @@
           </ul>
         </li> 
 
+        <!-- options for jobs -->
+        <li class="has-dropdown">
+          <%= link_to "Jobs", jobs_path %>
+          <ul class="dropdown">
+            <li><%= link_to "Job List", jobs_path %></li>
+            <li><%= link_to "Add a Job", new_job_path %></li>
+          </ul>
+        </li> 
+
         <!-- options for assignments -->
         <li class="has-dropdown">
           <%= link_to "Assignments", assignments_path %>
