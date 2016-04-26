@@ -8,8 +8,8 @@ class FlavorsController < ApplicationController
   end
 
   def show
-    @active_flavors = Flavor.active.paginate(page: params[:page]).per_page(8)
-    @inactive_flavors = Flavor.inactive.paginate(page: params[:page]).per_page(8)
+    @active_stores = @flavor.stores.active.alphabetical.paginate(page: params[:page]).per_page(10)
+    #@current_assignments = @store.assignments.current.by_employee.paginate(page: params[:page]).per_page(8)
   end
 
   def new
@@ -44,11 +44,11 @@ class FlavorsController < ApplicationController
 
   private
   def set_flavor
-    @flavor = flavor.find(params[:id])
+    @flavor = Flavor.find(params[:id])
   end
 
   def flavor_params
-    params.require(:flavor).permit(:date, :assignment_id, :start_time, :notes)
+    params.require(:flavor).permit(:name, :active)
   end
 
 end

@@ -1,0 +1,20 @@
+<h3>Stores with @flavor.name</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th class="centered">Address</th>
+      <th class="centered">Phone Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @active_stores.each do |store| %>
+      <tr>
+        <td><%= link_to store.name, store_path(store) %></td>
+        <td><%= number_to_phone store.phone %></td>
+        <td><%= store.assignments.current.count %></td>      
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @active_stores, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>

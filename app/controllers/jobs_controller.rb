@@ -7,10 +7,10 @@ class JobsController < ApplicationController
     @past_jobs = Job.inactive.alphabetical.paginate(page: params[:page]).per_page(8)
   end
 
-  # def show
-  #   @current_jobs = @job.active.alphabetical.paginate(page: params[:page]).per_page(8)
-  #   @past_jobs = @job.inactive.alphabetical.paginate(page: params[:page]).per_page(8)
-  # end
+  def show
+    @current_jobs = Job.active.alphabetical.paginate(page: params[:page]).per_page(8)
+    @past_jobs = Job.inactive.alphabetical.paginate(page: params[:page]).per_page(8)
+  end
 
   def new
     @job = Job.new
