@@ -1,0 +1,22 @@
+<h3>Store Flavors</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Active</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @mgr_store_flavors.each do |flavor| %>
+      <tr>
+        <% if flavor.active %>
+          <td class="centered"><%= image_tag("check_green.gif") %></td>
+        <% else %>
+                  <td class="centered"><%= link_to(image_tag("check_black.gif"), edit_flavor_path(flavor, active: false, from: 'project')) %></td>
+        <% end %>
+        <td><%= link_to flavor.name, flavor_path(flavor) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
