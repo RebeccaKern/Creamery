@@ -13,7 +13,7 @@
     <%= f.input :active %>
 
     <div class="span5">
-      <legend>User for this employee</legend>
+      <legend>User Account</legend>
       <%= simple_fields_for :user, html: { class: 'form-horizontal' } do |u| %>
           <%= u.input :email, input_html: {class: "avg"} %>
           <%= u.input :password, input_html: {class: "avg"} %>

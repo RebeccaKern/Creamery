@@ -1,6 +1,7 @@
 <%= simple_form_for @shift, html: { class: 'form-horizontal' } do |f| %>
   <fieldset>
     <legend><%= controller.action_name.capitalize %> Shift</legend>
+    
     <%= f.input :date, as: :date, start_year: Date.today.year - 13,
                               end_year: Date.today.year - 90,
                               order: [:month, :day, :year], include_blank: true, input_html: {class: "avg"} %>

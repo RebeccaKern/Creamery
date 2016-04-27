@@ -40,8 +40,9 @@ class EmployeesController < ApplicationController
 
   def create
     @employee = Employee.new(employee_params)
-    
     if @employee.save
+      user = User.new(user_params)
+      user.save!
       redirect_to employee_path(@employee), notice: "Successfully created #{@employee.proper_name}."
     else
       render action: 'new'
@@ -70,4 +71,7 @@ class EmployeesController < ApplicationController
     params.require(:employee).permit(:first_name, :last_name, :ssn, :date_of_birth, :role, :phone, :active, user_attributes: [:id, :email, :password, :password_confirmation])
   end
 
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
+  end
 end
