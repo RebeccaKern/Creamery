@@ -8,7 +8,8 @@ class HomeController < ApplicationController
         mgr_store = current_user.employee.current_assignment.store
         @active_employees = Employee.by_store(mgr_store).paginate(page: params[:page]).per_page(10)
         @inactive_employees = []
-        @mgr_store_flavors = Flavor.alphabetical
+        @flavors = Flavor.alphabetical
+        @mgr_store_flavors = StoreFlavor.by_store(mgr_store).map{|sf| sf.flavor}
     elsif current_user && current_user.role?(:employee)
         @flavors = StoreFlavor.paginate(page: params[:page]).per_page(10)
     end

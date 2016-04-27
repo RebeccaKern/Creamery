@@ -7,12 +7,12 @@
     </tr>
   </thead>
   <tbody>
-    <% @mgr_store_flavors.each do |flavor| %>
+    <% @flavors.each do |flavor| %>
       <tr>
-        <% if flavor.active %>
-          <td class="centered"><%= link_to(image_tag("check_green.gif"), edit_flavor_path(flavor, active: false, from: 'store'))  %></td>
+        <% if @mgr_store_flavors.include? flavor %>
+          <td class="centered"><%= link_to(image_tag("check_green.gif"), edit_flavor_path(flavor, active: false))  %></td>
         <% else %>
-          <td class="centered"><%= link_to(image_tag("check_black.gif"), edit_flavor_path(flavor, active: true, from: 'store')) %></td>
+          <td class="centered"><%= link_to(image_tag("check_black.gif"), edit_flavor_path(flavor, active: true)) %></td>
         <% end %>
         <td><%= link_to flavor.name, flavor_path(flavor) %></td>
       </tr>
