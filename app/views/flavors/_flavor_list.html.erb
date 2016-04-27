@@ -12,7 +12,7 @@
     <tbody>
       <% flavors.each do |flavor| %>
         <tr>
-          <td><%= flavor.name %></td>
+          <td><%= link_to flavor.name, flavor_path(flavor) %></td>
           <td>
             <%= link_to(edit_flavor_path(flavor), class: 'button tiny radius warning') do %>
               &nbsp;Edit&nbsp;

@@ -1,4 +1,4 @@
-<h3>Stores with @flavor.name</h3>
+<h3>Stores with <%= @flavor.name%></h3>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -11,8 +11,9 @@
     <% @active_stores.each do |store| %>
       <tr>
         <td><%= link_to store.name, store_path(store) %></td>
-        <td><%= number_to_phone store.phone %></td>
-        <td><%= store.assignments.current.count %></td>      
+        <td><%= store.street %> <br> 
+        <%= store.city %>, <%= store.state %> <%= store.zip %></td>  
+        <td><%= number_to_phone store.phone %></td>  
       </tr>
     <% end %>
   </tbody>
