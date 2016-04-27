@@ -1,1 +1,4 @@
-<h2>Welcome <%= "#{current_user.employee.first_name}" %></h2>
+<%= render partial: "partials/index_structure", locals: {model_name: "store", 
+                                                         primary: "active_stores", 
+                                                         secondary: nil,
+                                                         sidebar: "inactive_stores"} %>

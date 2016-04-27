@@ -1,6 +1,14 @@
 class HomeController < ApplicationController
 
   def home
+    if current_user && current_user.role?(:admin)
+        @active_stores = Store.active.alphabetical.paginate(page: params[:page]).per_page(10)
+        @inactive_stores = Store.inactive.alphabetical.paginate(page: params[:page]).per_page(10)  
+    elsif current_user && current_user.role?(:manager)
+        mgr_store = current_user.employee.current_assignment.store
+        @active_employees = Employee.by_store(mgr_store).paginate(page: params[:page]).per_page(10)
+         @inactive_employees = []
+    end
   end
 
   def about

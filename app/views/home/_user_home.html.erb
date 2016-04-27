@@ -1,0 +1,12 @@
+<% myArray = ["You're doing a great job, ", "Welcome, ", "Keep up the hard work, ", "Nice to see you today, ", "Today is a great day to eat ice cream, " ] %>
+<% message = myArray[rand(myArray.length)] %>
+<h2><%= "#{message} #{current_user.employee.first_name}!" %></h2>
+
+ <% if current_user && current_user.role?(:admin)%>
+      <%= render :partial => 'admin_home' %>
+ <% elsif current_user && current_user.role?(:manager)%>
+      <%= render :partial => 'manager_home' %>
+ <% elsif current_user && current_user.role?(:employee)%>
+      <%= render :partial => 'employee_home' %>
+ <% end %>
+
