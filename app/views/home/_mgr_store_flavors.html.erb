@@ -10,9 +10,9 @@
     <% @mgr_store_flavors.each do |flavor| %>
       <tr>
         <% if flavor.active %>
-          <td class="centered"><%= image_tag("check_green.gif") %></td>
+          <td class="centered"><%= link_to(image_tag("check_green.gif"), edit_flavor_path(flavor, active: false, from: 'store'))  %></td>
         <% else %>
-                  <td class="centered"><%= link_to(image_tag("check_black.gif"), edit_flavor_path(flavor, active: false, from: 'project')) %></td>
+          <td class="centered"><%= link_to(image_tag("check_black.gif"), edit_flavor_path(flavor, active: true, from: 'store')) %></td>
         <% end %>
         <td><%= link_to flavor.name, flavor_path(flavor) %></td>
       </tr>
