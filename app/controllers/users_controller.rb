@@ -1,12 +1,13 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:update, :destroy] #edit
 
   def new
     @user = User.new
   end
 
-  def edit
-    @user = current_user
-  end
+  # def edit
+  #   @user = current_user
+  # end
 
   def create
     @user = User.new(user_params)
@@ -21,7 +22,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      flash[:notice] = "#{@user.proper_name} is updated."
+      #flash[:notice] = "#{@user.proper_name} is updated."
       redirect_to @user
     else
       render :action => 'edit'
@@ -30,8 +31,13 @@ class UsersController < ApplicationController
 
 private
 
+  # Use callbacks to share common setup or constraints between actions.
+    def set_user
+      @user= User.find(params[:id])
+    end
+
     def user_params
-        params.require(:user).permit(:first_name, :last_name, :role, :band_id, :active, :password, :password_confirmation)  
+        params.require(:user).permit(:email, :password, :password_confirmation, :employee_id)
     end
 
 end

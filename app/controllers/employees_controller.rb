@@ -31,7 +31,7 @@ class EmployeesController < ApplicationController
 
   def new
     @employee = Employee.new
-    user = @employee.build_user
+    user = @employee.build_user(:employee_id => @employee.id)
   end
 
   def edit
@@ -42,6 +42,7 @@ class EmployeesController < ApplicationController
     @employee = Employee.new(employee_params)
     if @employee.save
       user = User.new(user_params)
+      user.employee_id = @employee.id
       user.save!
       redirect_to employee_path(@employee), notice: "Successfully created #{@employee.proper_name}."
     else
@@ -72,6 +73,6 @@ class EmployeesController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params.require(:user).permit(:email, :password, :password_confirmation, :employee_id)
   end
 end
