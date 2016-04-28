@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   resources :flavors
   # this will need to be fixed##############################
   resources :store_flavors
+  # Toggling for store flavors
+  post 'toggle_flavors/' => 'store_flavors#toggle', as: :add_flavors
+  delete 'toggle_flavors/' => 'store_flavors#toggle', as: :remove_flavors
 
   # Semi-static page routes
   get 'home' => 'home#home', as: :home
