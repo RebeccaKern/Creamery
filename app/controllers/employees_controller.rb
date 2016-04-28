@@ -31,7 +31,7 @@ class EmployeesController < ApplicationController
 
   def new
     @employee = Employee.new
-    user = @employee.build_user(:employee_id => @employee.id)
+    user = @employee.build_user
   end
 
   def edit

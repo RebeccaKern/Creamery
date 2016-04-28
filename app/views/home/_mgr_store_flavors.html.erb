@@ -1,5 +1,5 @@
 <h3>Store Flavors</h3>
-<table class="table table-striped">
+<table class="table table-striped" id="flavors_active">
   <thead>
     <tr>
       <th>Active</th>
@@ -10,9 +10,9 @@
     <% @flavors.each do |flavor| %>
       <tr>
         <% if @mgr_store_flavors.include? flavor %>
-          <td class="centered"><%= link_to(image_tag("check_green.gif"), edit_flavor_path(flavor, active: false))  %></td>
+          <td class="centered"><%= link_to(image_tag("check_green.gif"), method: :delete, data: { confirm: 'Are you certain you want to delete this?' })  %></td>
         <% else %>
-          <td class="centered"><%= link_to(image_tag("check_black.gif"), edit_flavor_path(flavor, active: true)) %></td>
+          <td class="centered"><%= link_to(image_tag("check_black.gif"), new_store_flavor_path) %></td>
         <% end %>
         <td><%= link_to flavor.name, flavor_path(flavor) %></td>
       </tr>
@@ -20,3 +20,9 @@
   </tbody>
 </table>
 
+#write routes by hand
+#similar to sessions controller
+#write a very limited controller
+#probably no html templates
+#new.js.erb
+#to see ajax 
