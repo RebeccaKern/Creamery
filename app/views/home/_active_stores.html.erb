@@ -8,6 +8,7 @@
         <th width="225">Store Name</th>
         <th width="225">Managers</th>
         <th width="225">Store Phone</th>
+        <th width="125">Cumulative Hours</th>
         <th width="125">Staff Count</th>
         <th width="75">&nbsp;</th>
       </tr>
@@ -16,9 +17,12 @@
       <% @active_stores.each do |store| %>
         <tr>
         <% managers = Employee.managers.by_store(store).map{|a| a.proper_name} %>
+        <% shifts = Shift.for_store(store).for_past_days(7).map{|s| s}%>
+        <% sum = 0 %>
           <td><%= link_to store.name, store_path(store) %></td>
-          <td><% managers.each do |manager| %>&nbsp;<br><%= manager %><% end %></td>
+          <td><% managers.each do |manager| %><%= manager %><br><% end %></td>
           <td><%= number_to_phone store.phone %></td>
+          <td><%= shifts.map{ |s| TimeDifference.between(s.start_time, s.end_time).in_hours}.inject{|n| sum + n} %></td>
           <td><%= store.assignments.current.count %></td>      
           <td>
             <%= link_to(edit_store_path(store), class: 'button tiny radius warning') do %>

@@ -38,6 +38,7 @@ gem 'foundation-rails', '5.5.3.2'
 gem 'font-awesome-sass-rails', '3.0.2.2'
 gem 'geocoder', '1.3.2'
 gem "nested_form"
+gem 'time_difference'
 
 
 group :development, :test do
