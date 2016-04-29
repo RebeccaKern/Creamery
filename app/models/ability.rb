@@ -89,41 +89,42 @@ class Ability
       # end
 
     elsif user.role? :employee
-      can :read, Store
-      can :read, Job 
-      can :read, Flavor
+        can :manage, :all
+      # can :read, Store
+      # can :read, Job 
+      # can :read, Flavor
 
-      # only for them individually
-      can :read, Employee do |e|
-        e.id == user.employee_id
-      end
+      # # only for them individually
+      # can :read, Employee do |e|
+      #   e.id == user.employee_id
+      # end
 
-      can :update, Employee do |e|
-        e.id == user.employee_id
-      end
+      # can :update, Employee do |e|
+      #   e.id == user.employee_id
+      # end
 
-      can :read, User do |u|  
-        u.id == user.id
-      end
+      # can :read, User do |u|  
+      #   u.id == user.id
+      # end
 
-      can :update, User do |u|  
-        u.id == user.id
-      end
+      # can :update, User do |u|  
+      #   u.id == user.id
+      # end
 
-      can :read, Assignment do |a|
-        a.id == user.employee.assignment_id
-      end
+      # can :read, Assignment do |a|
+      #   a.id == user.employee.assignment_id
+      # end
 
-      can :read, Shift do |this_shift|  
-        my_shifts = user.employee.shifts.map(&:id)
-        my_shifts.include? this_shift.id 
-      end
+      # can :read, Shift do |this_shift|  
+      #   my_shifts = user.employee.shifts.map(&:id)
+      #   my_shifts.include? this_shift.id 
+      # end
 
-      # start their shift and end their shift
-      can :update, Shift do |shift|  
-        employee_shifts = user.employee.shifts.map(&:id)
-        employee_shifts.include? shift.id 
-      end
+      # # start their shift and end their shift
+      # can :update, Shift do |shift|  
+      #   employee_shifts = user.employee.shifts.map(&:id)
+      #   employee_shifts.include? shift.id 
+      # end
 
     else
       # guests can only read domains covered (plus home pages)

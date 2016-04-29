@@ -1,8 +1,6 @@
 class ShiftsController < ApplicationController
-  before_action :set_shift, only: [:show, :edit, :update, :destroy]
+  before_action :set_shift, only: [:show, :edit, :update, :destroy, :start_shift, :end_shift]
   authorize_resource
-
-#start now and end now routes associated and then call the model
 
   def index
     @current_shifts = Shift.upcoming.by_employee.paginate(page: params[:page]).per_page(8)
@@ -40,6 +38,15 @@ class ShiftsController < ApplicationController
   def destroy
     @shift.destroy
     redirect_to shifts_path, notice: "Successfully removed #{@shift.employee.name}'s shift from the AMC system."
+  end
+
+  #start now and end now routes associated and then call the model
+  def start_shift
+    @shift.start_now
+  end
+
+  def end_shift
+    @shift.end_now
   end
 
   private
