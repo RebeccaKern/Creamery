@@ -1,15 +1,14 @@
 <%= simple_form_for @shift, html: { class: 'form-horizontal' } do |f| %>
   <fieldset>
     <legend><%= controller.action_name.capitalize %> Shift</legend>
-    
-    <%= f.input :date, as: :date, start_year: Date.today.year - 13,
-                              end_year: Date.today.year - 90,
-                              order: [:month, :day, :year], include_blank: true, input_html: {class: "avg"} %>
+  <%= f.input :date, label: "Date", as: :string, :input_html => {:class => "avg datepicker"} %>
     <%= f.input :start_time, input_html: {class: "avg"} %>
     <%= f.input :end_time, input_html: {class: "avg"} %>
     <%= f.input :notes, input_html: {class: "avg"} %>
     
-    <%= f.input :assignment_id, :collection => Assignment.current, :include_blank => true, input_html: {class: "avg"} %>
+    <!--%= f.input :assignment_id, :collection => Assignment.current.map{|a| a.employee}, :include_blank => true, input_html: {class: "avg"} %-->
+    <% mgr_store = current_user.employee.current_assignment.store %>
+    <%= f.input :assignment_id, :collection => Assignment.current.for_store(mgr_store).map{|a| a.employee}.sort_by{ |m| m.name.downcase }, :include_blank => true, input_html: {class: "avg"} %>
 
     <div class="form-actions">
       <%= f.submit nil, :class => 'button radius' %>
