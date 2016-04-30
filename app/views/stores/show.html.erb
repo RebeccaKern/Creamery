@@ -3,9 +3,11 @@
     <%= render partial: "store_details" %>
   </div>
   <%= image_tag @store.create_map_link %>
-  <div class="small-5 columns">
-    <%= render partial: "assigned_employees" unless @current_assignments.empty?%>
-  </div>
+  <% if can? :delete, Employee %>
+      <div class="small-5 columns">
+        <%= render partial: "assigned_employees" unless @current_assignments.empty?%>
+      </div>
+  <%end%>
 </div>
 
 <!-- Add buttons to list all, edit project or destroy object -->
