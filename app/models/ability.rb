@@ -41,13 +41,14 @@ class Ability
         store_shifts.include?(this_shift)
       end 
 
+      can :manage, Shift
       # can create shifts for their employees
-      can :create, Shift do |this_shift|
-        mgr_store = user.employee.current_assignment.store
-        store_assignments = mgr_store.assignments.current.map{|a| a}
-        store_shifts = store_assignments.map{|s| s.shifts}
-        store_shifts.include?(this_shift)
-      end
+      can :create, Shift #do |this_shift|
+      #   mgr_store = user.employee.current_assignment.store
+      #   store_assignments = mgr_store.assignments.current.map{|a| a}
+      #   store_shifts = store_assignments.map{|s| s.shifts}
+      #   store_shifts.include?(this_shift)
+      # end
 
       can :update, Shift do |this_shift|
         mgr_store = user.employee.current_assignment.store

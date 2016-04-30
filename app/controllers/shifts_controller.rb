@@ -7,7 +7,7 @@ class ShiftsController < ApplicationController
   end
 
   def show
-    @current_shifts = @shift.upcoming.by_employee.paginate(page: params[:page]).per_page(8)
+    @current_shifts = Shift.upcoming.by_employee.paginate(page: params[:page]).per_page(8)
   end
 
   def new
@@ -21,7 +21,7 @@ class ShiftsController < ApplicationController
     @shift = Shift.new(shift_params)
     
     if @shift.save
-      redirect_to shift_path(@shift), notice: "Successfully created #{@shift.name}."
+      redirect_to shift_path(@shift), notice: "Successfully created shift for #{@shift.assignment.employee.name}."
     else
       render action: 'new'
     end
