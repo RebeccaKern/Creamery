@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :shifts
   patch 'shift_start/' => 'shifts#start_shift', as: :start_shift
   patch 'shift_end/' => 'shifts#end_shift', as: :end_shift
+  #put 'completed/:id' => 'shifts#complete', as: :complete
   #post 'shift_start/' => 'shift#start_shift', as: :start_shift
 
   resources :jobs
