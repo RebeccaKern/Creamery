@@ -25,6 +25,6 @@ $(function() {
 // Datepicker code
 $(function() {
   $(".datepicker").datepicker({
-    format: 'mm/dd/YYYY'
+    dateFormat: 'MM d,yy'
   });
 });
