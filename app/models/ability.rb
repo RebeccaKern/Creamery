@@ -36,45 +36,39 @@ class Ability
       
       can :show, Shift do |this_shift|
         mgr_store = user.employee.current_assignment.store
-        store_assignments = mgr_store.assignments.current.map{|a| a}
-        store_shifts = store_assignments.map{|s| s.shifts}
-        store_shifts.include?(this_shift)
+        store_shifts = Shift.all.map{|s| s if s.store == mgr_store}
+        store_shifts.include?(this_shift)      
       end 
 
-      can :manage, Shift
+      #can :manage, Shift
       # can create shifts for their employees
-      can :create, Shift #do |this_shift|
-      #   mgr_store = user.employee.current_assignment.store
-      #   store_assignments = mgr_store.assignments.current.map{|a| a}
-      #   store_shifts = store_assignments.map{|s| s.shifts}
-      #   store_shifts.include?(this_shift)
-      # end
+      can :create, Shift do |this_shift|
+        mgr_store = user.employee.current_assignment.store
+        store_shifts = Shift.all.map{|s| s if s.store == mgr_store}
+        store_shifts.include?(this_shift)
+      end
 
       can :update, Shift do |this_shift|
         mgr_store = user.employee.current_assignment.store
-        store_assignments = mgr_store.assignments.current.map{|a| a}
-        store_shifts = store_assignments.map{|s| s.shifts}
+        store_shifts = Shift.all.map{|s| s if s.store == mgr_store}
         store_shifts.include?(this_shift)
       end
 
       can :destroy, Shift do |this_shift|
         mgr_store = user.employee.current_assignment.store
-        store_assignments = mgr_store.assignments.current.map{|a| a}
-        store_shifts = store_assignments.map{|s| s.shifts}
+        store_shifts = Shift.all.map{|s| s if s.store == mgr_store}
         store_shifts.include?(this_shift)
       end
 
       can :start_shift, Shift do |this_shift|
         mgr_store = user.employee.current_assignment.store
-        store_assignments = Assignment.for_store(mgr_store).map{|a| a}#mgr_store.assignments.current.map{|a| a}
-        store_shifts = store_assignments.map{|s| s.shifts}
+        store_shifts = Shift.all.map{|s| s if s.store == mgr_store}
         store_shifts.include?(this_shift)
       end
 
       can :end_shift, Shift do |this_shift|
         mgr_store = user.employee.current_assignment.store
-        store_assignments = mgr_store.assignments.current.map{|a| a}
-        store_shifts = store_assignments.map{|s| s.shifts}
+        store_shifts = Shift.all.map{|s| s if s.store == mgr_store}
         store_shifts.include?(this_shift)
       end
 
