@@ -39,7 +39,7 @@ class Shift < ActiveRecord::Base
   end
 
   def start_now
-    self.update_attribute(:start_time, Time.current)
+    self.update_attribute(:start_time, DateTime.now)
   end
 
   def end_now

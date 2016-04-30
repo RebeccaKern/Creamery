@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   resources :employees
   resources :assignments
   resources :shifts
-  get 'shift_start/' => 'shifts#start_shift', as: :start_shift
+  patch 'shift_start/' => 'shifts#start_shift', as: :start_shift
+  patch 'shift_end/' => 'shifts#end_shift', as: :end_shift
   #post 'shift_start/' => 'shift#start_shift', as: :start_shift
 
   resources :jobs

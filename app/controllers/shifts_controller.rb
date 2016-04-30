@@ -43,10 +43,12 @@ class ShiftsController < ApplicationController
   #start now and end now routes associated and then call the model
   def start_shift
     @shift.start_now
+    redirect_to home_url, notice: "started shift"
   end
 
   def end_shift
     @shift.end_now
+    redirect_to home_url, notice: "ended shift"
   end
 
   private
