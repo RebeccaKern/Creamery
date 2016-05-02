@@ -1,4 +1,4 @@
-<%= f.input :start_time, input_html: {class: "avg"} %>
+<%= f.input :start_time, :minute_step => 15, input_html: {class: "avg"} %>
 
 <% mgr_store = current_user.employee.current_assignment.store %>
 
