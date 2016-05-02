@@ -19,7 +19,6 @@ class ShiftsController < ApplicationController
 
   def create
     @shift = Shift.new(shift_params)
-    ###make sure to increment in 15 minute increments
     if @shift.save
       respond_to do |format|
         format.html {redirect_to shift_path(@shift), notice: "Successfully created shift for #{@shift.assignment.employee.name}."}
