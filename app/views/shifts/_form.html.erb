@@ -2,8 +2,8 @@
   <fieldset>
     <legend><%= controller.action_name.capitalize %> Shift</legend>
   <%= f.input :date, label: "Date", as: :string, :input_html => {:class => "avg datepicker"} %>
-    <%= f.input :start_time, input_html: {class: "avg"} %>
-    <%= f.input :end_time, input_html: {class: "avg"} %>
+    <%= f.input :start_time, :minute_step => 15, input_html: {class: "avg"} %>
+    <%= f.input :end_time, :minute_step => 15, input_html: {class: "avg"} %>
     <%= f.input :notes, input_html: {class: "avg"} %>
     
     <!--%= f.input :assignment_id, :collection => Assignment.current.map{|a| a.employee}, :include_blank => true, input_html: {class: "avg"} %-->
