@@ -1,0 +1,5 @@
+<%= f.input :start_time, input_html: {class: "avg"} %>
+
+<% mgr_store = current_user.employee.current_assignment.store %>
+
+<%= f.input :assignment_id, :collection => Assignment.current.for_store(mgr_store).map{|a| [a.employee.name, a.id]}.sort_by{ |m,_| m }, :include_blank => true, input_html: {class: "avg"} %>

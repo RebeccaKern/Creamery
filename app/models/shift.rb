@@ -68,7 +68,7 @@ class Shift < ActiveRecord::Base
   end
   
   def set_shift_end_time
-    self.end_time = self.start_time + (3*60*60)
+      self.end_time = self.start_time + (3*60*60)
   end
 
 end

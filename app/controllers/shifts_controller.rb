@@ -19,12 +19,18 @@ class ShiftsController < ApplicationController
 
   def create
     @shift = Shift.new(shift_params)
-    
+    ###make sure to increment in 15 minute increments
     if @shift.save
-      redirect_to shift_path(@shift), notice: "Successfully created shift for #{@shift.assignment.employee.name}."
+      respond_to do |format|
+        format.html {redirect_to shift_path(@shift), notice: "Successfully created shift for #{@shift.assignment.employee.name}."}
+        mgr_store = current_user.employee.current_assignment.store
+        @next_weeks_shifts = Shift.for_store(mgr_store).for_next_days(7)
+        format.js
+      end
     else
       render action: 'new'
     end
+
   end
 
   def update

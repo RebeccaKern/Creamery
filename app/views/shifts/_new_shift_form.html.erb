@@ -2,16 +2,8 @@
    <fieldset>
     <legend><%= controller.action_name.capitalize %> Shift</legend>
    <%= f.input :date, label: "Date", as: :string, :input_html => {:class => "avg datepicker"} %>
-    <%= f.input :start_time, input_html: {class: "avg"} %>
-    <%= f.input :end_time, input_html: {class: "avg"} %>
-    <%= f.input :notes, input_html: {class: "avg"} %>
     
-    <!--%= f.input :assignment_id, :collection => Assignment.current.map{|a| a.employee}, :include_blank => true, input_html: {class: "avg"} %-->
-    <% mgr_store = current_user.employee.current_assignment.store %>
-
-    <%= f.input :assignment_id, :collection => Assignment.current.for_store(mgr_store).map{|a| [a.employee.name, a.id]}.sort_by{ |m,_| m }, :include_blank => true, input_html: {class: "avg"} %>
-
-    #value_method, label_method
+    <%= render :partial => 'extra_shift_form', locals: {f: f} %>
 
     <div class="form-actions">
       <%= f.submit nil, :class => 'button radius' %>
