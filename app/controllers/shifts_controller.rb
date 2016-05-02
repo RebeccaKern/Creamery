@@ -10,6 +10,10 @@ class ShiftsController < ApplicationController
     @current_shifts = Shift.upcoming.by_employee.paginate(page: params[:page]).per_page(8)
   end
 
+  # def incomplete
+  #   @incomplete_shifts = Shift.for_store(mgr_store).incomplete
+  # end
+
   def new
     @shift = Shift.new
   end

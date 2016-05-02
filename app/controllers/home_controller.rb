@@ -13,7 +13,8 @@ class HomeController < ApplicationController
         @shift_jobs = ShiftJob.all
         @today_shifts = Shift.for_store(mgr_store).for_next_days(0)
         @next_weeks_shifts = Shift.for_store(mgr_store).for_next_days(7)
-        @incomplete_shifts = Shift.for_store(mgr_store).incomplete
+        @past_shifts = Shift.for_store(mgr_store).past.paginate(page: params[:page]).per_page(5)
+        @incomplete_shifts = Shift.for_store(mgr_store).incomplete.paginate(page: params[:page]).per_page(5)
         @complete_shifts = Shift.for_store(mgr_store).incomplete
         @jobs = Job.all
     elsif current_user && current_user.role?(:employee)

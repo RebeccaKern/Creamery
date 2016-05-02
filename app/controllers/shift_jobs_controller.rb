@@ -1,5 +1,5 @@
  class ShiftJobsController < ApplicationController
-    before_action :set_shift_job, only: [:destroy]
+    #before_action :set_shift_job, only: [:destroy]
     authorize_resource
 
     def new
@@ -11,7 +11,8 @@
       @shift_job.save!
     end
 
-    def destroy
+    def destroy(id)
+      @shift_job = ShiftJob.find_by(id)
       @shift_job.destroy
     end
 
@@ -25,21 +26,25 @@
           sj.save!
       else
         sj = ShiftJob.find_by_shift_id_and_job_id(shift_id, job_id)
-        sj.destroy
+        destroy(sj.id)
       end
       respond_to do |format|
+        mgr_store = current_user.employee.current_assignment.store
         @jobs = Job.alphabetical
+        @shift = Shift.find(params[:shift_id])
         @shift_jobs = ShiftJob.all
+        @past_shifts = Shift.for_store(mgr_store).past.paginate(page: params[:page]).per_page(5)
+        @complete_shifts = Shift.for_store(mgr_store).incomplete
         format.js
       end
     end
 
     private
-      def set_store_flavor
-        @shift_job = ShiftJob.find(params[:id])
-      end
+      # def set_shift_job
+      #   @shift_job = ShiftJob.find(params[:id])
+      # end
 
-      def store_flavor_params
+      def shift_job_params
         params.require(:shift_job).permit(:shift_id, :job_id)
       end
   end

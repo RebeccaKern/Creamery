@@ -1,7 +1,8 @@
-<h3>Incomplete Shifts</h3>
+<h3>Past Shifts</h3>
 <table class="table table-striped">
   <thead>
     <tr>
+      <th class="centered">Completed</th>
       <th>Employee</th>
       <th class="centered">Date</th>
       <th class="centered">Start Time</th>
@@ -10,18 +11,20 @@
     </tr>
   </thead>
   <tbody>
-    <% @incomplete_shifts.each do |shift| %>
+    <% @past_shifts.each do |shift| %>
       <tr>
         <% @shift = shift%>
+        <td class="centered"><%= (@complete_shifts.include? shift) ? 'Complete' : 'Incomplete' %></td>
         <td><%= link_to shift.employee.name, employee_path(shift.employee) %></td>
         <td class="centered"><%= shift.date.strftime("%m/%d/%y")%></td>
         <td class="centered"><%= shift.start_time.localtime.strftime("%I:%M %p")%></td>
         <td class="centered"><%= shift.end_time.localtime.strftime("%I:%M %p")%></td>
         <td>
-        <%= render :partial => 'jobs_checklist' %>
+        <%= render :partial => 'home/jobs_checklist' %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+  <%= will_paginate @past_shifts, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %> 
 
