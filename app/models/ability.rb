@@ -72,6 +72,8 @@ class Ability
         store_shifts.include?(this_shift)
       end
 
+      can :manage, ShiftJob
+
       can :update, ShiftJob do |this_sj|
         mgr_store = user.employee.current_assignment.store
         store_assignments = mgr_store.assignments.current.map{|a| a}
