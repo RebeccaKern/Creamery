@@ -10,8 +10,12 @@ class HomeController < ApplicationController
         @inactive_employees = []
         @flavors = Flavor.alphabetical
         @mgr_store_flavors = StoreFlavor.by_store(mgr_store).map{|sf| sf.flavor}
+        @shift_jobs = ShiftJob.all
         @today_shifts = Shift.for_store(mgr_store).for_next_days(0)
         @next_weeks_shifts = Shift.for_store(mgr_store).for_next_days(7)
+        @incomplete_shifts = Shift.for_store(mgr_store).incomplete
+        @complete_shifts = Shift.for_store(mgr_store).incomplete
+        @jobs = Job.all
     elsif current_user && current_user.role?(:employee)
         @flavors = StoreFlavor.paginate(page: params[:page]).per_page(10)
     end

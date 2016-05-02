@@ -11,7 +11,11 @@ Rails.application.routes.draw do
 
   resources :jobs
   resources :flavors
-  # this will need to be fixed##############################
+
+  resources :shift_jobs
+  post 'toggle_jobs/' => 'shift_jobs#toggle', as: :add_jobs
+  delete 'toggle_jobs/' => 'shift_jobs#toggle', as: :remove_jobs
+
   resources :store_flavors
   # Toggling for store flavors
   post 'toggle_flavors/' => 'store_flavors#toggle', as: :add_flavors

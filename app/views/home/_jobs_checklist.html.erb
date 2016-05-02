@@ -1,0 +1,12 @@
+<table>
+<% @jobs.each do |job| %>
+    <tr>
+    <% if @shift.shift_jobs.include? job %>
+    <td class="centered"><%= image_tag("check_green.gif") %></td>
+    <% else %>
+    <td class="centered"><%= link_to(image_tag("check_black.gif"), add_jobs_path(job_id: job.id, status: 'add'),remote: true, method: :post) %></td>
+    <% end %>
+    <td class="centered"><%=job.name %></td>
+    </tr>
+<% end %>
+</table>
