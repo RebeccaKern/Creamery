@@ -45,6 +45,7 @@
           
         <% end %>
 
+        <% if logged_in? && current_user.employee.role == 'admin' %>
         <!-- options for stores -->
         <% if can? :show, Store and current_user != nil%>
         <li class="has-dropdown">
@@ -122,6 +123,7 @@
           </ul>
         </li>
         <% end %>
+         <% end %>
       </ul>
 
     </section>
