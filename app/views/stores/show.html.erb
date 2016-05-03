@@ -2,10 +2,13 @@
   <div class="small-7 columns">
     <%= render partial: "store_details" %>
   </div>
-  <%= image_tag @store.create_map_link %>
   <% if can? :delete, Employee %>
       <div class="small-5 columns">
         <%= render partial: "assigned_employees" unless @current_assignments.empty?%>
+      </div>
+    <%else%>
+    <div class="small-5 columns">
+        <%= image_tag @store.create_map_link %>
       </div>
   <%end%>
 </div>

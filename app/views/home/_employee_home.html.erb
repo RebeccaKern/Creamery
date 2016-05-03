@@ -1,10 +1,20 @@
-<% if current_user.employee.shifts.upcoming.first.date == Date.current %>
-    <td><%= link_to(start_shift_path(shift_id: current_user.employee.shifts.upcoming.first.id), class: 'button tiny radius warning', method: :patch) do%>
+<% if current_user.employee.shifts.upcoming != [] and  current_user.employee.shifts.upcoming.first.date == Date.current%>
+    <%= link_to(start_shift_path(id: current_user.employee.shifts.upcoming.first.id), class: 'button tiny radius warning', method: :patch) do%>
             &nbsp;Start Shift&nbsp;
-        <% end %></td>
-    <td><%= link_to(end_shift_path(shift_id: current_user.employee.shifts.upcoming.first.id), class: 'button tiny radius warning', method: :patch) do%>
-            &nbsp;End Shift&nbsp;
-        <% end %></td>
+        <% end %>
+    <%= link_to(end_shift_path(id: current_user.employee.shifts.upcoming.first.id), class: 'button tiny radius warning', method: :patch) do%>
+        &nbsp;End Shift&nbsp;
+    <% end %>
+<% elsif current_user.employee.shifts.upcoming.first != nil %>
+    <% if current_user.employee.shifts.upcoming.first.start_time.min < 10 %>
+    <%= "Your next shift is #{current_user.employee.shifts.upcoming.first.date.month}/#{current_user.employee.shifts.upcoming.first.date.day} at #{current_user.employee.shifts.upcoming.first.start_time.hour}:0#{current_user.employee.shifts.upcoming.first.start_time.min}" %>
+    <% else %>
+    <%= "Your next shift is #{current_user.employee.shifts.upcoming.first.date.month}/#{current_user.employee.shifts.upcoming.first.date.day} at #{current_user.employee.shifts.upcoming.first.start_time.hour}:#{current_user.employee.shifts.upcoming.first.start_time.min}" %>
+    <% end %>
 
+<% else %>
+    <%= "You don't have any upcoming shifts." %>
 
 <% end %>
+
+<%= render :partial => 'my_upcoming_shifts' %>

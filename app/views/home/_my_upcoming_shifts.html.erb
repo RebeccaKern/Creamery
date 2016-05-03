@@ -1,0 +1,22 @@
+<h3>My Upcoming Shifts</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Employee</th>
+      <th class="centered">Date</th>
+      <th class="centered">Start Time</th>
+      <th class="centered">End Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @my_upcoming_shifts.each do |shift| %>
+      <tr>
+        <td><%= link_to shift.employee.name, employee_path(shift.employee) %></td>
+        <td class="centered"><%= shift.date.strftime("%m/%d/%y")%></td>
+        <td class="centered"><%= shift.start_time.localtime.strftime("%I:%M %p")%></td>
+        <td class="centered"><%= shift.end_time.localtime.strftime("%I:%M %p")%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
