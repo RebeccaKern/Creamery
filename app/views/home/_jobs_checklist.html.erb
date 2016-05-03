@@ -1,10 +1,11 @@
-<table id='jobs_added'>
+<div  id=<%= "jobs_added_#{@shift.id}"%> >
+<table>
 <% sj_array = @shift.shift_jobs %> 
-<% j = sj_array.map{|sj| sj.job} %>
+<% j = sj_array.map{|sj| sj.job.id} %>
 <% @jobs.each do |job| %>
     <tr>
         <td class="centered"><%=job.name %></td>
-        <% if j.include? job %>
+        <% if j.include? job.id %>
         <td class="centered"><%= link_to(image_tag("check_green.gif"), remove_jobs_path(shift_id: @shift.id, job_id: job.id, status: 'remove'),remote: true, method: :delete) %></td>
         <% else %>
         <td class="centered"><%= link_to(image_tag("check_black.gif"), add_jobs_path(shift_id: @shift.id, job_id: job.id, status: 'add'),remote: true, method: :post) %></td>
@@ -13,3 +14,4 @@
     </tr>
 <% end %>
 </table>
+</div>

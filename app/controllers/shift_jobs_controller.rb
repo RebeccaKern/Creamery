@@ -19,20 +19,21 @@
     def toggle
       job_id = params[:job_id]
       shift_id = params[:shift_id]
-      if params[:status] == 'add'
-          sj = ShiftJob.new
-          sj.shift_id = shift_id
-          sj.job_id = job_id
-          sj.save!
+      sj = ShiftJob.find_by(shift_id: shift_id, job_id: job_id)
+        
+      if sj.nil?
+          sjj = ShiftJob.new
+          sjj.shift_id = shift_id
+          sjj.job_id = job_id
+          sjj.save!
       else
-        sj = ShiftJob.find_by_shift_id_and_job_id(shift_id, job_id)
-        destroy(sj.id)
+        sj.destroy
       end
       respond_to do |format|
         mgr_store = current_user.employee.current_assignment.store
         @jobs = Job.alphabetical
         @shift = Shift.find(params[:shift_id])
-        @shift_jobs = ShiftJob.all
+        #@shift_jobs = ShiftJob.all
         @past_shifts = Shift.for_store(mgr_store).past.paginate(page: params[:page]).per_page(5)
         @complete_shifts = Shift.for_store(mgr_store).incomplete
         format.js

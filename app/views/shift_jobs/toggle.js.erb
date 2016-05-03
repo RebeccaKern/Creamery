@@ -1,1 +1,1 @@
-$('#jobs_added').replaceWith('<%= j render("home/jobs_checklist") %>');
+$("#jobs_added_<%= @shift.id %>").replaceWith('<%= j render("home/jobs_checklist") %>');

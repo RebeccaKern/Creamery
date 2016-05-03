@@ -16,7 +16,7 @@ class HomeController < ApplicationController
         @past_shifts = Shift.for_store(mgr_store).past.paginate(page: params[:page]).per_page(5)
         @incomplete_shifts = Shift.for_store(mgr_store).incomplete.paginate(page: params[:page]).per_page(5)
         @complete_shifts = Shift.for_store(mgr_store).incomplete
-        @jobs = Job.all
+        @jobs = Job.alphabetical
     elsif current_user && current_user.role?(:employee)
         @flavors = StoreFlavor.paginate(page: params[:page]).per_page(10)
     end
