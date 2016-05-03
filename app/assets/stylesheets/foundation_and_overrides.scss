@@ -1123,7 +1123,7 @@ $table-even-row-bg: #BDE9FD;
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
-$topbar-bg-color: #339966;
+$topbar-bg-color: #cec488;
 $topbar-bg: $topbar-bg-color;
 
 // Height and margin
@@ -1135,12 +1135,12 @@ $topbar-bg: $topbar-bg-color;
 // $topbar-title-font-size: rem-calc(17);
 
 // Style the top bar dropdown elements
-// $topbar-dropdown-bg: #333;
-// $topbar-dropdown-link-color: #fff;
-// $topbar-dropdown-link-bg: #333;
+$topbar-dropdown-bg: #cec488;
+$topbar-dropdown-link-color: #fff;
+$topbar-dropdown-link-bg: #cec488;
 // $topbar-dropdown-link-weight: normal;
 // $topbar-dropdown-toggle-size: 5px;
-// $topbar-dropdown-toggle-color: #fff;
+$topbar-dropdown-toggle-color: #fff;
 // $topbar-dropdown-toggle-alpha: 0.4;
 
 // Set the link colors and styles for top-level nav
@@ -1150,19 +1150,19 @@ $topbar-bg: $topbar-bg-color;
 // $topbar-link-color-active-hover: #fff;
 // $topbar-link-weight: normal;
 // $topbar-link-font-size: rem-calc(13);
-// $topbar-link-hover-lightness: -10%; // Darken by 10%
-// $topbar-link-bg-hover: #272727  ;
+$topbar-link-hover-lightness: -10%; // Darken by 10%
+$topbar-link-bg-hover: #e3d99f  ;
 // $topbar-link-bg-active: $primary-color;
 // $topbar-link-bg-active-hover: scale-color($primary-color, $lightness: -14%);
 // $topbar-link-font-family: $body-font-family;
 
 // $topbar-button-font-size: 0.75rem;
 
-// $topbar-dropdown-label-color: #777;
+$topbar-dropdown-label-color: #cec488;
 // $topbar-dropdown-label-text-transform: uppercase;
 // $topbar-dropdown-label-font-weight: bold;
 // $topbar-dropdown-label-font-size: rem-calc(10);
-// $topbar-dropdown-label-bg: #333;
+$topbar-dropdown-label-bg: #cec488;
 
 // Top menu icon styles
 // $topbar-menu-link-transform: uppercase;
@@ -1337,10 +1337,11 @@ label {
   padding-right: 4px;
 }
 
-img.resize{
-    width:40px; /* you can use % */
-    height: auto;
+a img {
+  border: none;
+  width: 80%;
+  padding-right: 10px;
+  padding-left: 10px;
 }
-
 
 @import 'foundation';
