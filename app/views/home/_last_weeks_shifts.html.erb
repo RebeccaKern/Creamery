@@ -1,20 +1,25 @@
-<h3>My Upcoming Shifts</h3>
+<h3>Last Week's Shifts</h3>
 <table class="table table-striped">
   <thead>
     <tr>
       <th class="centered">Date</th>
       <th class="centered">Start Time</th>
       <th class="centered">End Time</th>
+      <th class="centered">Jobs</th>
     </tr>
   </thead>
   <tbody>
-    <% @my_upcoming_shifts.each do |shift| %>
+    <% @last_week_shifts.each do |shift| %>
       <tr>
         <td class="centered"><%= shift.date.strftime("%m/%d/%y")%></td>
         <td class="centered"><%= shift.start_time.localtime.strftime("%I:%M %p")%></td>
         <td class="centered"><%= shift.end_time.localtime.strftime("%I:%M %p")%></td>
+        <td>
+            <% shift.jobs.each do |job| %>
+              <%=job.name %><br>
+            <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-

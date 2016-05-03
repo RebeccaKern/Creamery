@@ -2,14 +2,18 @@
 <% store = current_user.employee.assignments.current.map{|a| a.store} %>
 <% store = store[0] %>
 <h4><%= "#{message} #{store.name} location!" %></h4>
+<%# currentshifts = current_user.employee.assignments.map{|a| a.shifts} %>
+<%# currentshifts.map{ |s| TimeDifference.between(s.start_time, s.end_time).in_hours}.inject{|n| sum + n} %>
 
 <% if current_user.employee.shifts.upcoming != [] and  current_user.employee.shifts.upcoming.first.date == Date.current%>
+    <div "small-5 columns">
     <%= link_to(start_shift_path(id: current_user.employee.shifts.upcoming.first.id), class: 'button tiny radius warning', method: :patch) do%>
             &nbsp;Start Shift&nbsp;
         <% end %>
     <%= link_to(end_shift_path(id: current_user.employee.shifts.upcoming.first.id), class: 'button tiny radius warning', method: :patch) do%>
         &nbsp;End Shift&nbsp;
     <% end %>
+    </div>
 <% elsif current_user.employee.shifts.upcoming.first != nil %>
     <% if current_user.employee.shifts.upcoming.first.start_time.min < 10 %>
     <%= "Your next shift is #{current_user.employee.shifts.upcoming.first.date.month}/#{current_user.employee.shifts.upcoming.first.date.day} at #{current_user.employee.shifts.upcoming.first.start_time.hour}:0#{current_user.employee.shifts.upcoming.first.start_time.min}" %>
@@ -21,5 +25,11 @@
     <%= "You don't have any upcoming shifts." %>
 
 <% end %>
-
-<%= render :partial => 'my_upcoming_shifts' %>
+<div class="small-12 columns">
+<div class="small-5 columns">
+    <%= render :partial => 'my_upcoming_shifts' %>
+</div>
+<div class="small-7 columns">
+<%= render :partial => 'last_weeks_shifts' %>
+</div>
+</div>

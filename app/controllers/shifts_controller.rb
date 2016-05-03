@@ -24,22 +24,26 @@ class ShiftsController < ApplicationController
   def create
     @shift = Shift.new(shift_params)
     puts params
+    puts params[:status]
     if @shift.save && params[:status] == 'finish'
-      respond_to do |format|
-        format.html {redirect_to shift_path(@shift), notice: "Successfully created shift for #{@shift.assignment.employee.name}."}
-        mgr_store = current_user.employee.current_assignment.store
-        @next_weeks_shifts = Shift.for_store(mgr_store).for_next_days(7)
-        format.js
-      end
+      #redirect_to assignments_path, notice: "#{@assignment.employee.proper_name} is assigned to #{@assignment.store.name}."
+      redirect_to shift_path(@shift), notice: "Successfully created shift for #{@shift.assignment.employee.name}.}"
+      # respond_to do |format|
+      #   format.html {redirect_to shift_path(@shift), notice: "Successfully created shift for #{@shift.assignment.employee.name}."}
+      #   mgr_store = current_user.employee.current_assignment.store
+      #   @next_weeks_shifts = Shift.for_store(mgr_store).for_next_days(7)
+      #   format.js
+      # end
     elsif @shift.save && params[:status] == 'add_another'
-      respond_to do |format|
-        format.html {redirect_to new_shift_path, notice: "Successfully created shift for #{@shift.assignment.employee.name}."}
-        mgr_store = current_user.employee.current_assignment.store
-        @next_weeks_shifts = Shift.for_store(mgr_store).for_next_days(7)
-        format.js
-      end
-    else
-      render action: 'new'
+      render :partial => 'new_shift_form', notice: "Successfully created shift for #{@shift.assignment.employee.name}.}"
+      # respond_to do |format|
+      #   format.html {redirect_to new_shift_path, notice: "Successfully created shift for #{@shift.assignment.employee.name}."}
+      #   mgr_store = current_user.employee.current_assignment.store
+      #   @next_weeks_shifts = Shift.for_store(mgr_store).for_next_days(7)
+      #   format.js
+      # end
+    # else
+    #   render action: 'new'
     end
 
   end

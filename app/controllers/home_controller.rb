@@ -20,6 +20,7 @@ class HomeController < ApplicationController
     elsif current_user && current_user.role?(:employee)
         @flavors = StoreFlavor.paginate(page: params[:page]).per_page(10)
         @my_upcoming_shifts = Shift.for_employee(current_user.employee).upcoming.paginate(page: params[:page]).per_page(10)
+        @last_week_shifts = Shift.for_employee(current_user.employee).for_past_days(7).paginate(page: params[:page]).per_page(10)
     end
   end
 
