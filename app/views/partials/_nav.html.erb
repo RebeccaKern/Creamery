@@ -3,7 +3,10 @@
     <section class="top-bar-section">
       <ul class="left">
         <!-- link to home -->
+        <!--%= link_to image_tag('textLogo.png'), home_path %-->
+
         <li><%= link_to "Home", home_path %></li>
+
 
          <% if current_user == nil %>
           <li class="has-dropdown">
@@ -125,6 +128,7 @@
         <% end %>
          <% end %>
       </ul>
+
 
     </section>
   </nav>

@@ -1337,5 +1337,10 @@ label {
   padding-right: 4px;
 }
 
+img.resize{
+    width:40px; /* you can use % */
+    height: auto;
+}
+
 
 @import 'foundation';
