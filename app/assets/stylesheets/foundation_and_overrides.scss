@@ -113,7 +113,7 @@
 // $include-html-type-classes: $include-html-classes;
 
 // We use these to control header font styles
-// $header-font-family: $body-font-family;
+// $header-font-family: "$body-font-family";
 // $header-font-weight: 300;
 // $header-font-style: normal;
 // $header-font-color: #222;
@@ -142,7 +142,7 @@
 // $small-font-color: scale-color($header-font-color, $lightness: 35%);
 
 // We use these to style paragraphs
-// $paragraph-font-family: inherit;
+$paragraph-font-family: "Book Antiqua Regular";
 // $paragraph-font-weight: normal;
 // $paragraph-font-size: 1rem;
 // $paragraph-line-height: 1.6;
@@ -1360,3 +1360,14 @@ a:hover, a:focus {
     background: #e3d99f;
     color: #fff;
 }
+
+button.warning:hover, button.warning:focus, .button.warning:hover, .button.warning:focus {
+    background-color: #33A5FF;
+}
+
+button.warning, .button.warning {
+    background-color: #2278DD;
+    border-color: #cf6e0e;
+    color: #FFFFFF;
+}
+
