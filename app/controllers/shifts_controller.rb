@@ -23,9 +23,17 @@ class ShiftsController < ApplicationController
 
   def create
     @shift = Shift.new(shift_params)
-    if @shift.save
+    puts params
+    if @shift.save && params[:status] == 'finish'
       respond_to do |format|
         format.html {redirect_to shift_path(@shift), notice: "Successfully created shift for #{@shift.assignment.employee.name}."}
+        mgr_store = current_user.employee.current_assignment.store
+        @next_weeks_shifts = Shift.for_store(mgr_store).for_next_days(7)
+        format.js
+      end
+    elsif @shift.save && params[:status] == 'add_another'
+      respond_to do |format|
+        format.html {redirect_to new_shift_path, notice: "Successfully created shift for #{@shift.assignment.employee.name}."}
         mgr_store = current_user.employee.current_assignment.store
         @next_weeks_shifts = Shift.for_store(mgr_store).for_next_days(7)
         format.js
@@ -61,11 +69,16 @@ class ShiftsController < ApplicationController
   end
 
   private
+    def convert_start_date
+      params[:shift][:date] = (params[:shift][:date]).to_date unless params[:shift][:date].blank?
+    end
+
   def set_shift
       @shift = Shift.find(params[:id])
   end
 
   def shift_params
+    convert_start_date
     params.require(:shift).permit(:date, :assignment_id, :start_time, :end_time, :notes, :job_ids => [])
   end
 

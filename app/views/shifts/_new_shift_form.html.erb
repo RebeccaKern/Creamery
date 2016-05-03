@@ -2,11 +2,20 @@
    <fieldset>
     <legend><%= controller.action_name.capitalize %> Shift</legend>
    <%= f.input :date, label: "Date", as: :string, :input_html => {:class => "avg datepicker"} %>
+   <%= f.input :start_time, :minute_step => 15, input_html: {class: "avg"} %>
+
+    <% mgr_store = current_user.employee.current_assignment.store %>
+
+<%= f.input :assignment_id, :collection => Assignment.current.for_store(mgr_store).map{|a| [a.employee.name, a.id]}.sort_by{ |m,_| m }, :include_blank => true, input_html: {class: "avg"} %>
     
-    <%= render :partial => 'extra_shift_form', locals: {f: f} %>
+    <%# render :partial => 'extra_shift_form', locals: {f: f} %>
 
     <div class="form-actions">
-      <%= f.submit nil, :class => 'button radius' %>
+    <%#f.submit 'Create', create_shifts_path(status: 'finish'), remote: true, method: :post) %>
+    <%= link_to('Create', {:controller => :shifts, :action => :create, :status => 'add_another'}, class: "button radius" ) %>
+      <%# link_to(image_tag("check_green.gif"), remove_jobs_path(shift_id: @shift.id, job_id: job.id, status: 'remove'),remote: true, method: :delete) %>
+      <%#f.submit nil, :class => 'button radius', remote: true, status: 'finish'%>
+      <%# f.submit 'Add One More', :class => 'button radius', remote: true,  status: 'one_more'%>
       <%= link_to 'Back', home_path, :class => 'button alert radius' %>
     </div>
   </fieldset>

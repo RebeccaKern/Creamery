@@ -1,3 +1,7 @@
+<% message = "We're glad to have you managing our " %>
+<% store = current_user.employee.assignments.current.map{|a| a.store} %>
+<% store = store[0] %>
+<h4><%= "#{message} #{store.name} location!" %></h4>
 
 <%= render :partial => 'schedule_next_week' %>
 

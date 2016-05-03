@@ -1,3 +1,8 @@
+<% message = "We're glad to have you at our " %>
+<% store = current_user.employee.assignments.current.map{|a| a.store} %>
+<% store = store[0] %>
+<h4><%= "#{message} #{store.name} location!" %></h4>
+
 <% if current_user.employee.shifts.upcoming != [] and  current_user.employee.shifts.upcoming.first.date == Date.current%>
     <%= link_to(start_shift_path(id: current_user.employee.shifts.upcoming.first.id), class: 'button tiny radius warning', method: :patch) do%>
             &nbsp;Start Shift&nbsp;
