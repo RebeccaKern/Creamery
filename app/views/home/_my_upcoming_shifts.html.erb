@@ -1,3 +1,6 @@
+<% if @my_upcoming_shifts.empty? %>
+  <p><em>You don't have any upcoming shifts.</em></p>
+<% else %>
 <h3>My Upcoming Shifts</h3>
 <table class="table table-striped">
   <thead>
@@ -17,4 +20,5 @@
     <% end %>
   </tbody>
 </table>
+<% end %>
 

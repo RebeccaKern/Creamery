@@ -18,11 +18,10 @@
         <tr>
         <% managers = Employee.managers.by_store(store).map{|a| a.proper_name} %>
         <% shifts = Shift.for_store(store).for_past_days(7).map{|s| s}%>
-        <% sum = 0 %>
           <td><%= link_to store.name, store_path(store) %></td>
           <td><% managers.each do |manager| %><%= manager %><br><% end %></td>
           <td><%= number_to_phone store.phone %></td>
-          <td><%= shifts.map{ |s| TimeDifference.between(s.start_time, s.end_time).in_hours}.inject{|n| sum + n} %></td>
+          <td><%= shifts.map{ |s| TimeDifference.between(s.start_time, s.end_time).in_hours}.inject(0){|sum,x| sum + x }%></td>
           <td><%= store.assignments.current.count %></td>      
           <td>
             <%= link_to(edit_store_path(store), class: 'button tiny radius warning') do %>

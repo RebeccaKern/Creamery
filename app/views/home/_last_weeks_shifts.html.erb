@@ -1,3 +1,6 @@
+<% if @last_week_shifts.empty? %>
+  <p><em>You haven't worked any shifts yet.</em></p>
+<% else %>
 <h3>Last Week's Shifts</h3>
 <table class="table table-striped">
   <thead>
@@ -23,3 +26,4 @@
     <% end %>
   </tbody>
 </table>
+<% end %>
