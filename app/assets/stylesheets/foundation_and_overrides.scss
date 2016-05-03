@@ -1029,7 +1029,7 @@ $panel-bg: scale-color(#E1F7E7, $lightness: -5%);
 
 // These control the background color for the table and even rows
 // $table-bg: #fff;
-$table-even-row-bg: #BDE9FD;
+$table-even-row-bg: #d7fffa;
 
 // These control the table cell border style
 // $table-border-style: solid;
@@ -1037,7 +1037,7 @@ $table-even-row-bg: #BDE9FD;
 // $table-border-color: #ddd;
 
 // These control the table head styles
-// $table-head-bg: #f5f5f5  ;
+$table-head-bg: #cec488;
 // $table-head-font-size: rem-calc(14);
 // $table-head-font-color: #222;
 // $table-head-font-weight: bold;
@@ -1193,6 +1193,8 @@ $topbar-dropdown-label-bg: #cec488;
 
 // $include-html-visibility-classes: $include-html-classes;
 
+@import 'foundation';
+
 .tl_name {
   width: 225px;
   display: block;
@@ -1246,18 +1248,8 @@ $topbar-dropdown-label-bg: #cec488;
   padding-top: 0px;
   padding-bottom: 15px;
   background-color:#ffffff;
-  color: #229944;
+  color: #000000;
   text-align: center;
-}
-
-#footer a {
-  color: #339999;
-  text-decoration: none;
-}
-
-#footer a:hover {
-  color: #339999;
-  text-decoration: underline;
 }
 
 #copy {
@@ -1344,4 +1336,24 @@ a img {
   padding-left: 10px;
 }
 
-@import 'foundation';
+a {
+    color: #2278DD;
+    line-height: inherit;
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    color: #33A5FF;
+}
+
+#footer a {
+  color: #2278DD;
+  text-decoration: none;
+}
+
+#footer a:hover {
+  color: #33A5FF;
+  text-decoration: underline;
+}
+
+
