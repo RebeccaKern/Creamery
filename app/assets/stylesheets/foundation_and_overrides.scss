@@ -1356,4 +1356,7 @@ a:hover, a:focus {
   text-decoration: underline;
 }
 
-
+.top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button):hover {
+    background: #e3d99f;
+    color: #fff;
+}
