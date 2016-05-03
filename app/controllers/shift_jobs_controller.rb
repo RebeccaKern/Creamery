@@ -35,7 +35,7 @@
         @shift = Shift.find(params[:shift_id])
         #@shift_jobs = ShiftJob.all
         @past_shifts = Shift.for_store(mgr_store).past.paginate(page: params[:page]).per_page(5)
-        @complete_shifts = Shift.for_store(mgr_store).incomplete
+        @complete_shifts = Shift.for_store(mgr_store).completed
         format.js
       end
     end

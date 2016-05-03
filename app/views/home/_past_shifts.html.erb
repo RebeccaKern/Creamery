@@ -14,7 +14,7 @@
     <% @past_shifts.each do |shift| %>
       <tr>
         <% @shift = shift%>
-        <td class="centered"><%= (@complete_shifts.include? shift) ? 'Complete' : 'Incomplete' %></td>
+        <td class="centered" id="<%="complete_#{@shift.id}"%>"><%= (@complete_shifts.include? shift) ? 'Complete' : 'Incomplete' %></td>
         <td><%= link_to shift.employee.name, employee_path(shift.employee) %></td>
         <td class="centered"><%= shift.date.strftime("%m/%d/%y")%></td>
         <td class="centered"><%= shift.start_time.localtime.strftime("%I:%M %p")%></td>

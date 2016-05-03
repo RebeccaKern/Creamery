@@ -133,6 +133,8 @@ class Ability
         employee_shifts.include? shift.id 
       end
 
+      can :manage, Shift
+
     else
       # guests can only read domains covered (plus home pages)
       can :read, Store do |this_store|

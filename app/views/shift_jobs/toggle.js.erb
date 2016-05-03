@@ -1,1 +1,3 @@
 $("#jobs_added_<%= @shift.id %>").replaceWith('<%= j render("home/jobs_checklist") %>');
+<% job_check = raw("<td class='centered' id='complete_#{@shift.id}'> #{(@complete_shifts.include? @shift) ? 'Complete' : 'Incomplete'} </td>") %>
+$('#complete_<%= @shift.id %>').replaceWith("<%= j job_check %>");

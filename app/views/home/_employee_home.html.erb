@@ -1,6 +1,10 @@
 <% if current_user.employee.shifts.upcoming.first.date == Date.current %>
-    <%= link_to(start_shift_path(shift_id: current_user.employee.shifts.upcoming.first.id), class: 'button radius') do %>
-        &nbsp;<%= "Start Shift" %>
-    <% end %>
+    <td><%= link_to(start_shift_path(shift_id: current_user.employee.shifts.upcoming.first.id), class: 'button tiny radius warning', method: :patch) do%>
+            &nbsp;Start Shift&nbsp;
+        <% end %></td>
+    <td><%= link_to(end_shift_path(shift_id: current_user.employee.shifts.upcoming.first.id), class: 'button tiny radius warning', method: :patch) do%>
+            &nbsp;End Shift&nbsp;
+        <% end %></td>
+
 
 <% end %>
