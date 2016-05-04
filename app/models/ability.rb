@@ -40,7 +40,6 @@ class Ability
         store_shifts.include?(this_shift)      
       end 
 
-      #can :manage, Shift
       # can create shifts for their employees
       can :create, Shift do |this_shift|
         mgr_store = user.employee.current_assignment.store
@@ -153,6 +152,13 @@ class Ability
       can :end_shift, Shift do |shift|  
         employee_shifts = user.employee.shifts.map(&:id)
         employee_shifts.include? shift.id 
+      end
+
+      can :read, ShiftJob do |this_sj|
+        e= user.employee.current_assignment
+        store_shifts = e.shifts
+        e_shift_jobs = store_shifts.map{|s| s.shift_jobs }
+        e_shift_jobs.include? this_sj
       end
 
     else

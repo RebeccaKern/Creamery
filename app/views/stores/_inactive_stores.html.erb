@@ -1,5 +1,6 @@
+<% if can? :edit, Store %>
 <% unless @inactive_stores.empty? %>
-  <div class="panel callout radius">
+  <div class="panel">
     <h3>Inactive Stores</h3>
     <ul>
       <% @inactive_stores.each do |store| %>
@@ -7,4 +8,5 @@
       <% end %>
     </ul>
   </div>
+<% end %>
 <% end %>

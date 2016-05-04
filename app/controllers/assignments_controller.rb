@@ -14,11 +14,11 @@ class AssignmentsController < ApplicationController
       @past_assignments = Assignment.past.by_employee.by_store.paginate(page: params[:page]).per_page(15)  
     elsif current_user && current_user.role?(:manager)
       mgr_store = current_user.employee.current_assignment.store
-      @current_assignments = mgr_store.assignments.current.paginate(page: params[:page]).per_page(10)
+      @current_assignments = mgr_store.assignments.current.chronological.paginate(page: params[:page]).per_page(10)
       @past_assignments = []
     elsif current_user && current_user.role?(:employee)
-      @current_assignments = Assignment.for_employee(current_user.employee).current.paginate(page: params[:page]).per_page(10)
-      @past_assignments = Assignment.for_employee(current_user.employee).past.paginate(page: params[:page]).per_page(10)
+      @current_assignments = Assignment.for_employee(current_user.employee).current.chronological.paginate(page: params[:page]).per_page(10)
+      @past_assignments = Assignment.for_employee(current_user.employee).past.chronological.paginate(page: params[:page]).per_page(10)
     else
       @current_assignments = []#Employee.active.alphabetical.paginate(page: params[:page]).per_page(10)#[] #Employee.active.alphabetical.paginate(page: params[:page]).per_page(10)
       @past_assignments = [] #Employee.inactive.alphabetical.paginate(page: params[:page]).per_page(10)

@@ -48,6 +48,18 @@
             <% end %>
           </ul>
         </li> 
+
+        <% if can? :index, Assignment %>
+        <li class="has-dropdown">
+          <%= link_to "Assignments", assignments_path %>
+          <ul class="dropdown">
+            <li><%= link_to "Assignments List", assignments_path %></li>
+            <% if can? :create, Assignment %>
+            <li><%= link_to "Create New Assignment", new_assignment_path %></li>
+            <% end %>
+          </ul>
+        </li>
+        <% end %>
                 <!-- options for flavors -->
         <% if can? :index, Flavor %>
         <li class="has-dropdown">
