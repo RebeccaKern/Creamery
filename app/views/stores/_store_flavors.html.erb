@@ -1,0 +1,16 @@
+<h3>Store Flavors</h3>
+<table class="table table-striped" id="flavors_active">
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @active_flavors.each do |flavor| %>
+      <tr>
+        <td><%= link_to flavor.name, flavor_path(flavor) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

@@ -7,7 +7,9 @@
       <tr>
         <th width="225">Store Name</th>
         <th width="225">Store Phone</th>
+        <% if can? :manage, Store %>
         <th width="125">Staff Count</th>
+        <%end%>
         <th width="75">&nbsp;</th>
       </tr>
     </thead>
@@ -16,7 +18,9 @@
         <tr>
           <td><%= link_to store.name, store_path(store) %></td>
           <td><%= number_to_phone store.phone %></td>
-          <td><%= store.assignments.current.count %></td>      
+          <% if can? :manage, Store %>
+          <td><%= store.assignments.current.count %></td>   
+          <% end %>   
           <td>
           <% if can? :edit, Store %>
             <%= link_to(edit_store_path(store), class: 'button tiny radius warning') do %>
@@ -30,3 +34,4 @@
   </table>
   <%= will_paginate @active_stores, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %> <p>&nbsp;</p>
 <% end %>
+

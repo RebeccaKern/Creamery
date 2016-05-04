@@ -154,7 +154,7 @@ class Ability
         active_stores.include? this_store.id
       end
 
-      #can :read, Flavor
+      can :read, Flavor
     end
 
   end

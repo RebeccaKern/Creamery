@@ -2,15 +2,13 @@ class ShiftsController < ApplicationController
   before_action :set_shift, only: [:show, :edit, :update, :destroy, :start_shift, :end_shift]
   authorize_resource
 
-  def complete
-  end
 
   def index
     if current_user && current_user.role?(:admin)
       @current_shifts = Shift.upcoming.by_employee.paginate(page: params[:page]).per_page(8)
     elsif current_user && current_user.role?(:manager)
       mgr_store = current_user.employee.current_assignment.store
-      @current_shifts = Shift.for_store(mgr_store)
+      @current_shifts = Shift.for_store(mgr_store).paginate(page: params[:page]).per_page(8)
     elsif current_user && current_user.role?(:employee)
       @current_shifts = Shift.for_employee(current_user.employee).paginate(page: params[:page]).per_page(10)
     end
