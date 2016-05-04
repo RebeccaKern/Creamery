@@ -10,7 +10,7 @@ class ShiftsController < ApplicationController
       mgr_store = current_user.employee.current_assignment.store
       @current_shifts = Shift.for_store(mgr_store).paginate(page: params[:page]).per_page(8)
     elsif current_user && current_user.role?(:employee)
-      @current_shifts = Shift.for_employee(current_user.employee).paginate(page: params[:page]).per_page(10)
+      @current_shifts = Shift.for_employee(current_user.employee).chronological.paginate(page: params[:page]).per_page(10)
     end
   end
 
@@ -33,7 +33,7 @@ class ShiftsController < ApplicationController
     @shift = Shift.new(shift_params)
     puts params
     puts params[:status]
-    if @shift.save && params[:status] == 'finish'
+    if @shift.save #&& params[:status] == 'finish'
       #redirect_to assignments_path, notice: "#{@assignment.employee.proper_name} is assigned to #{@assignment.store.name}."
       redirect_to shift_path(@shift), notice: "Successfully created shift for #{@shift.assignment.employee.name}.}"
       # respond_to do |format|
@@ -50,8 +50,8 @@ class ShiftsController < ApplicationController
       #   @next_weeks_shifts = Shift.for_store(mgr_store).for_next_days(7)
       #   format.js
       # end
-    # else
-    #   render action: 'new'
+    else
+      render action: 'new'
     end
 
   end
@@ -72,12 +72,12 @@ class ShiftsController < ApplicationController
   #start now and end now routes associated and then call the model
   def start_shift
     @shift.start_now
-    redirect_to home_url, notice: "started shift"
+    redirect_to home_url, notice: "#{@shift.employee.proper_name}'s shift has been started."
   end
 
   def end_shift
     @shift.end_now
-    redirect_to home_url, notice: "ended shift"
+    redirect_to home_url, notice: "#{@shift.employee.proper_name}'s shift has been finished."
   end
 
   private

@@ -145,7 +145,15 @@ class Ability
         employee_shifts.include? shift.id 
       end
 
-      #can :manage, Shift
+      can :start_shift, Shift do |shift|  
+        employee_shifts = user.employee.shifts.map(&:id)
+        employee_shifts.include? shift.id 
+      end
+
+      can :end_shift, Shift do |shift|  
+        employee_shifts = user.employee.shifts.map(&:id)
+        employee_shifts.include? shift.id 
+      end
 
     else
       # guests can only read domains covered (plus home pages)
