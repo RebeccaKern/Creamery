@@ -78,9 +78,13 @@ class Ability
         store_shifts.include?(this_shift)
       end
 
-      can :manage, ShiftJob
-
-
+      can :toggle, ShiftJob do |this_sj|
+        mgr_store = user.employee.current_assignment.store
+        store_assignments = mgr_store.assignments.current.map{|a| a}
+        store_shifts = store_assignments.map{|s| s.shifts}
+        store_shift_jobs = store_shifts.map{|s| s.shift_jobs }
+        store_shift_jobs.include? this_sj
+      end
 
       can :update, ShiftJob do |this_sj|
         mgr_store = user.employee.current_assignment.store
@@ -103,8 +107,6 @@ class Ability
         store_store_flavors = mgr_store.store_flavors.map{|a| a}
         store_store_flavors.include? this_sf
       end
-
-
 
     elsif user.role? :employee
       can :read, Store

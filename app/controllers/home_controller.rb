@@ -17,6 +17,7 @@ class HomeController < ApplicationController
         @incomplete_shifts = Shift.for_store(mgr_store).incomplete.paginate(page: params[:page]).per_page(5)
         @complete_shifts = Shift.for_store(mgr_store).completed
         @jobs = Job.alphabetical
+        @last_weeks_shifts = Shift.for_store(mgr_store).for_past_days(7)
     elsif current_user && current_user.role?(:employee)
         @flavors = StoreFlavor.paginate(page: params[:page]).per_page(10)
         @my_upcoming_shifts = Shift.for_employee(current_user.employee).upcoming.paginate(page: params[:page]).per_page(10)
@@ -26,10 +27,9 @@ class HomeController < ApplicationController
     end
   end
 
-
   def complete
     mgr_store = current_user.employee.current_assignment.store
-    @past_shifts = Shift.for_store(mgr_store).past.paginate(page: params[:page]).per_page(5)
+    @past_shifts = Shift.for_store(mgr_store).past.chronological_backwards.paginate(page: params[:page]).per_page(5)
     @complete_shifts = Shift.for_store(mgr_store).completed
     @jobs = Job.alphabetical
     @shift_jobs = ShiftJob.all

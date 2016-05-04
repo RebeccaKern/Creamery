@@ -7,22 +7,34 @@
       <tr>
         <th>Name</th>
         <th>Phone</th>
+        <% if can? :create, Assignment %>
         <th>Currently Assigned</th>
+        <% end %>
         <th>Role</th>
+        <th>Hours over last 7 days</th>
         <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
-      <% @active_employees.each do |employee| %>
+      <% @active_employees.each do |employee| %>     
         <tr>
           <td><%= link_to employee.name, employee_path(employee) %></td>
           <td><%= number_to_phone employee.phone unless employee.phone.nil?  %></td>
+          <% if can? :create, Assignment %>
           <td><%= link_to employee.current_assignment.store.name, store_path(employee.current_assignment.store) unless employee.current_assignment.nil? %></td>
+          <%end%>
           <td><%= employee.role.capitalize %></td>
           <td>
+          <% if @last_weeks_shifts != [] %>
+          <% employee_shifts = @last_weeks_shifts.select{|s| employee == s.employee} %>
+          <% employee_hours = employee_shifts.map{ |s| TimeDifference.between(s.start_time, s.end_time).in_hours}.inject(0){|sum,x| sum + x }%>
+          <%= employee_hours %>
+          <%end%></td>
+          <% if can? :edit, Employee %>
             <%= link_to(edit_employee_path(employee), class: 'button tiny radius warning') do %>
               &nbsp;Edit&nbsp;
-            <% end %>
+                    <% end %>
+          <% end %>
           </td>
         </tr>
       <% end %>

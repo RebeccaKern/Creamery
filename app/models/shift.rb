@@ -14,6 +14,7 @@ class Shift < ActiveRecord::Base
 
   # Scopes
   scope :chronological, -> { order(:date, :start_time) }
+  scope :chronological_backwards, -> { order('date DESC, start_time DESC')}
   scope :by_store, -> { joins(:assignment, :store).order('stores.name') }
   scope :by_employee, -> { joins(:assignment, :employee).order('employees.last_name, employees.first_name') }
   scope :past, -> { where('date < ?', Date.current) }
