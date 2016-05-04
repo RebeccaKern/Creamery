@@ -48,6 +48,31 @@
             <% end %>
           </ul>
         </li> 
+                <!-- options for flavors -->
+        <% if can? :index, Flavor %>
+        <li class="has-dropdown">
+          <%= link_to "Flavors", flavors_path %>
+          <ul class="dropdown">
+            <li><%= link_to "Flavor List", flavors_path %></li>
+            <% if can? :create, Flavor %>
+            <li><%= link_to "Add a Flavor", new_flavor_path %></li>
+            <% end %>
+          </ul>
+        </li> 
+        <% end %>
+
+        <!-- options for jobs -->
+        <% if can? :index, Job %>
+        <li class="has-dropdown">
+          <%= link_to "Jobs", jobs_path %>
+          <ul class="dropdown">
+            <li><%= link_to "Job List", jobs_path %></li>
+            <% if can? :create, Job %>
+            <li><%= link_to "Add a Job", new_job_path %></li>
+            <% end %>
+          </ul>
+        </li> 
+        <% end %>
           
         <% end %>
 

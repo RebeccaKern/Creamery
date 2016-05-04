@@ -5,17 +5,15 @@
 </p>
 
 <p>
-  <h4>
-    Date: <%= @shift.date.strftime("%m/%d/%y") %>
-  </h4>
+    <b>Date:</b> <%= @shift.date.strftime("%m/%d/%y") %>
 </p>
 
 <p>
-  <b>Start Time:</b> <%= @shift.start_time %>
+  <b>Start Time:</b> <%= @shift.start_time.strftime("%I:%M %p") %>
 </p>
 
 <p>
-  <b>End Time:</b> <%= @shift.end_time%>
+  <b>End Time:</b> <%= @shift.end_time.strftime("%I:%M %p")%>
 </p>
 
 <p>

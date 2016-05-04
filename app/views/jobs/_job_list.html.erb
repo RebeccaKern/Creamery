@@ -14,9 +14,11 @@
         <tr>
           <td><%= link_to job.name, job_path(job)%></td>
           <td>
+          <% if can? :edit, Job %>
             <%= link_to(edit_job_path(job), class: 'button tiny radius warning') do %>
               &nbsp;Edit&nbsp;
             <% end %>
+          <% end %>
           </td>
         </tr>
       <% end %>
