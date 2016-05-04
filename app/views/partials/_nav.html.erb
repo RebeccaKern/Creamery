@@ -6,8 +6,6 @@
         <!--%= link_to image_tag('textLogo.png'), home_path %-->
 
         <li><%= link_to "Home", home_path %></li>
-
-
          <% if current_user == nil %>
           <li class="has-dropdown">
             <%= link_to "Locations", stores_path %>
@@ -15,6 +13,16 @@
               <li><%= link_to "Store List", stores_path %></li>
             </ul>
           </li>
+        <% end %>
+
+        <% if logged_in? && current_user.employee.role == 'employee' %>
+         <li>
+            <%= link_to "Locations", stores_path %>
+          </li>
+        <li>
+          <%= link_to "My Shifts", shifts_path %>
+        </li> 
+        <li><%= link_to "My Assignments", assignments_path %></li>
         <% end %>
 
         <% if logged_in? && current_user.employee.role == 'manager' %>
