@@ -1,0 +1,29 @@
+<div class="panel clearfix">
+  <ul class="side-nav">
+    <h3>Employee Info</h3><br />
+
+    <b>Name:&nbsp;</b>
+    <%= @current_user.employee.name %><br /><br />
+
+    <b>SSN:</b>
+    <%= @current_user.employee.ssn %><br /><br />
+
+    <b>Date of Birth:</b>
+    <%= @current_user.employee.date_of_birth.strftime("%m/%d/%y") %><br /><br />
+
+    <b>Phone:</b>
+    <%= number_to_phone @current_user.employee.phone unless @current_user.employee.phone.nil? %><br /><br />
+
+    <b>Role:</b>
+    <%= @current_user.employee.role.capitalize %><br /><br />
+
+    <b>Email:</b>
+    <%= @current_user.email %><br /><br />
+
+    <b>Active:&nbsp;&nbsp;</b>
+    <%= @current_user.employee.active ? "Yes": "No"%><br><br />
+
+    <%= link_to "Edit", edit_employee_path(@current_user.employee.id), class: "button tiny radius" %>
+
+  </ul>
+</div>

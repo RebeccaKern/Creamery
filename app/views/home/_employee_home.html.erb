@@ -5,12 +5,10 @@
     <h4><%= "#{message} #{store.name} location!" %></h4>
 <% end %>
 
-
 <% if @last_week_shifts != [] %>
 <% last_week_hours = @last_week_shifts.map{ |s| TimeDifference.between(s.start_time, s.end_time).in_hours}.inject(0){|sum,x| sum + x }%>
 <%= "You have worked #{last_week_hours} hours in the last 7 days." %>
 <% end %>
-
 
 <% if current_user.employee.shifts.upcoming != [] and  current_user.employee.shifts.upcoming.first.date == Date.current%>
      <% if current_user.employee.shifts.upcoming.first.start_time.min < 10 %>
@@ -32,11 +30,14 @@
     <% end %>
 
 <% end %>
-<div class="small-12 columns">
-<div class="small-5 columns">
+<div class="row">
+<div class="small-8 columns">
     <%= render :partial => 'my_upcoming_shifts' %>
+    <%= render :partial => 'last_weeks_shifts' %>
 </div>
-<div class="small-7 columns">
-<%= render :partial => 'last_weeks_shifts' %>
+<div class="small-4 columns">
+    <!-- render the sidebar, if it exists -->
+    <%= render partial: 'employee_info_sidebar' %>
+</div>
 </div>
 </div>

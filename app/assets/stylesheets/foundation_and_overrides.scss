@@ -913,7 +913,7 @@ $panel-bg: scale-color(#E1F7E7, $lightness: -5%);
 // We use these to control border styles
 // $side-nav-divider-size: 1px;
 // $side-nav-divider-style: solid;
-// $side-nav-divider-color: scale-color(#fff, $lightness: -10%);
+// $side-nav-divider-color: #d7fffa;
 
 // Split Buttons
 
@@ -1384,4 +1384,11 @@ button, .button {
     border-color: #b3ffee;
     color: #FFFFFF;
 }
+
+.panel {
+    background-color:  #d7fffa;
+    border-color: #b3ffee;
+    color: #000000;
+}
+
 

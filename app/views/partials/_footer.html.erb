@@ -1,15 +1,15 @@
 
 <footer>
 
-	<%= link_to 'Home', home_path %>&nbsp;&nbsp;::&nbsp;&nbsp;
-  <%= link_to 'About the Creamery', about_path %>&nbsp;&nbsp;::&nbsp;&nbsp;
-	<%= link_to 'Contact Us', contact_path %>&nbsp;&nbsp;::&nbsp;&nbsp;
-	<%= link_to 'Privacy Policy', privacy_path %>
-	<br /><br />
-	
-	<div id="copy">
-		Webmaster: <%= mail_to("YOUR EMAIL HERE", "YOUR NAME HERE", encode: "javascript") %> 
-		&nbsp;&nbsp;&copy 2016
-	</div>
+    <%= link_to 'Home', home_path %>&nbsp;&nbsp;::&nbsp;&nbsp;
+    <%= link_to 'About A&M', about_path %>&nbsp;&nbsp;::&nbsp;&nbsp;
+    <%= link_to 'Contact Us', contact_path %>&nbsp;&nbsp;::&nbsp;&nbsp;
+    <%= link_to 'Privacy Policy', privacy_path %>
+    <br /><br />
+    <div id="copyright">
+      <br />Webmaster: <%= mail_to "rkern@example.com", "Rebecca Kern", :encode => "javascript" %>
+        &nbsp;&nbsp;Copyright 2016
+      <br /><br />
+    </div>
 
 </footer>
