@@ -35,7 +35,7 @@ class ShiftsController < ApplicationController
     puts params[:status]
     if @shift.save #&& params[:status] == 'finish'
       #redirect_to assignments_path, notice: "#{@assignment.employee.proper_name} is assigned to #{@assignment.store.name}."
-      redirect_to shift_path(@shift), notice: "Successfully created shift for #{@shift.assignment.employee.name}.}"
+      redirect_to shift_path(@shift), notice: "Successfully created shift for #{@shift.assignment.employee.proper_name}.}"
       # respond_to do |format|
       #   format.html {redirect_to shift_path(@shift), notice: "Successfully created shift for #{@shift.assignment.employee.name}."}
       #   mgr_store = current_user.employee.current_assignment.store
@@ -43,7 +43,7 @@ class ShiftsController < ApplicationController
       #   format.js
       # end
     elsif @shift.save && params[:status] == 'add_another'
-      render :partial => 'new_shift_form', notice: "Successfully created shift for #{@shift.assignment.employee.name}.}"
+      render :partial => 'new_shift_form', notice: "Successfully created shift for #{@shift.assignment.employee.proper_name}."
       # respond_to do |format|
       #   format.html {redirect_to new_shift_path, notice: "Successfully created shift for #{@shift.assignment.employee.name}."}
       #   mgr_store = current_user.employee.current_assignment.store
