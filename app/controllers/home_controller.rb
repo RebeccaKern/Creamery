@@ -26,6 +26,15 @@ class HomeController < ApplicationController
     end
   end
 
+
+  def complete
+    mgr_store = current_user.employee.current_assignment.store
+    @past_shifts = Shift.for_store(mgr_store).past.paginate(page: params[:page]).per_page(5)
+    @complete_shifts = Shift.for_store(mgr_store).completed
+    @jobs = Job.alphabetical
+    @shift_jobs = ShiftJob.all
+  end
+
   def about
   end
 

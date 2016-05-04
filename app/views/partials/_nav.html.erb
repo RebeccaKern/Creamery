@@ -20,7 +20,7 @@
             <%= link_to "Locations", stores_path %>
           </li>
         <li>
-          <%= link_to "My Shifts", shifts_path %>
+          
         </li> 
         <li><%= link_to "My Assignments", assignments_path %></li>
         <% end %>
@@ -46,7 +46,8 @@
         </li>
         <li class="has-dropdown">
           <%= link_to "Shifts", shifts_path %>
-          <ul class="dropdown">
+            <ul class="dropdown">
+              <li><%= link_to "Complete Shifts", complete_path %></li>
             <li><%= link_to "Manage Shifts", shifts_path %></li>
             <% if can? :create, Shift %>
             <li><%= link_to "Add Shifts", new_shift_path %></li>

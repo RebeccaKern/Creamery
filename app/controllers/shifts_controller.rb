@@ -2,6 +2,9 @@ class ShiftsController < ApplicationController
   before_action :set_shift, only: [:show, :edit, :update, :destroy, :start_shift, :end_shift]
   authorize_resource
 
+  def complete
+  end
+
   def index
     if current_user && current_user.role?(:admin)
       @current_shifts = Shift.upcoming.by_employee.paginate(page: params[:page]).per_page(8)

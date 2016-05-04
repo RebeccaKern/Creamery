@@ -72,7 +72,15 @@ class Ability
         store_shifts.include?(this_shift)
       end
 
+      can :complete, Shift do |this_shift|
+        mgr_store = user.employee.current_assignment.store
+        store_shifts = Shift.all.map{|s| s if s.store == mgr_store}
+        store_shifts.include?(this_shift)
+      end
+
       can :manage, ShiftJob
+
+
 
       can :update, ShiftJob do |this_sj|
         mgr_store = user.employee.current_assignment.store
@@ -95,6 +103,8 @@ class Ability
         store_store_flavors = mgr_store.store_flavors.map{|a| a}
         store_store_flavors.include? this_sf
       end
+
+
 
     elsif user.role? :employee
       can :read, Store
@@ -133,7 +143,7 @@ class Ability
         employee_shifts.include? shift.id 
       end
 
-      can :manage, Shift
+      #can :manage, Shift
 
     else
       # guests can only read domains covered (plus home pages)
