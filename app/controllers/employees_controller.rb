@@ -35,6 +35,11 @@ class EmployeesController < ApplicationController
   end
 
   def edit
+    # if @employee.user != nil
+    # #   @user = User.find_by_id(@employee.user.id)
+    #    render action: 'edit'
+    #end
+
     # fix so that you edit somebody that doesn't have a user
   end
 

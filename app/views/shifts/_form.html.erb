@@ -6,11 +6,13 @@
     <%= f.input :end_time, :minute_step => 15, input_html: {class: "avg"} %>
     <%= f.input :notes, input_html: {class: "avg"} %>
     
-    <!--%= f.input :assignment_id, :collection => Assignment.current.map{|a| a.employee}, :include_blank => true, input_html: {class: "avg"} %-->
-    
+    <% if current_user.employee.role == "manager"%>
     <% mgr_store = current_user.employee.current_assignment.store %>
     <%= f.input :assignment_id, :collection => Assignment.current.for_store(mgr_store).map{|a| [a.employee.name, a.id]}.sort_by{ |m,_| m }, :include_blank => true, input_html: {class: "avg"} %>
 
+    <%else%>
+    <%= f.input :assignment_id, :collection => Assignment.current.by_store.map{|a| [a.employee.name, a.id]}.sort_by{ |m,_| m }, :include_blank => true, input_html: {class: "avg"} %>
+    <%end%>
     <div class="form-actions">
       <%= f.submit nil, :class => 'button radius' %>
       <%= link_to 'Cancel', shifts_path, :class => 'button alert radius' %>
