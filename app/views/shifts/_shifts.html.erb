@@ -2,28 +2,36 @@
 <table class="table table-striped">
   <thead>
     <tr>
+    <% if can? :create, Shift %>
       <th>Employee</th>
+      <%end%>
       <th class="centered">Date</th>
       <th class="centered">Start Time</th>
       <th class="centered">End Time</th>
+<% if can? :delete, Shift %>
       <th width="75">&nbsp;</th>
-      <th width="150">&nbsp;</th>
+      <th width="75">&nbsp;</th>
+      <%end%>
     </tr>
   </thead>
   <tbody>
     <% @current_shifts.each do |shift| %>
       <tr>
+      <% if can? :create, Shift %>
         <td><%= link_to shift.employee.name, employee_path(shift.employee) %></td>
+        <%end%>
         <td class="centered"><%= shift.date.strftime("%m/%d/%y")%></td>
         <td class="centered"><%= shift.start_time.strftime("%I:%M %p")%></td>
         <td class="centered"><%= shift.end_time.strftime("%I:%M %p")%></td>
-        <td>
+
+        <% if can? :delete, Shift %>
+                <td>
             <%= link_to(edit_shift_path(shift), class: 'button tiny radius warning') do %>
               &nbsp;Edit&nbsp;
             <% end %>
           </td>
             <td><%= link_to 'Delete Shift', shift, data: {confirm: 'Are you sure?' }, method: :delete, class: 'button tiny radius round alert' %></td>
-
+            <% end %>
       </tr>
     <% end %>
   </tbody>

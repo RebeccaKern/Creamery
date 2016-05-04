@@ -1,26 +1,29 @@
+<div class="row">
 <% if current_user.employee.assignments != [] %>
     <% message = "We're glad to have you at our " %>
     <% store = current_user.employee.assignments.current.map{|a| a.store} %>
     <% store = store[0] %>
-    <h4><%= "#{message} #{store.name} location!" %></h4>
+    <h6><%= "#{message} #{store.name} location!" %></h6>
 <% end %>
 
 <% if @last_week_shifts != [] %>
 <% last_week_hours = @last_week_shifts.map{ |s| TimeDifference.between(s.start_time, s.end_time).in_hours}.inject(0){|sum,x| sum + x }%>
 <%= "You have worked #{last_week_hours} hours in the last 7 days." %>
 <% end %>
-
+</div>
 <% if current_user.employee.shifts.upcoming != [] and  current_user.employee.shifts.upcoming.first.date == Date.current%>
      <% if current_user.employee.shifts.upcoming.first.start_time.min < 10 %>
     <%= "Your shift today starts at #{current_user.employee.shifts.upcoming.first.start_time.hour}:0#{current_user.employee.shifts.upcoming.first.start_time.min}" %>
     <% else %>
     <%= "Your shift today starts at #{current_user.employee.shifts.upcoming.first.start_time.hour}:#{current_user.employee.shifts.upcoming.first.start_time.min}" %>
     <% end %>
+    <div class="row">
     <%= link_to(start_shift_path(id: current_user.employee.shifts.upcoming.first.id), class: 'button tiny radius warning', method: :patch) do%>
             &nbsp;Start Shift&nbsp;
         <% end %>
     <%= link_to(end_shift_path(id: current_user.employee.shifts.upcoming.first.id), class: 'button tiny radius warning', method: :patch) do%>
         &nbsp;End Shift&nbsp;
+    </div>
     <% end %>
 <% elsif current_user.employee.shifts.upcoming.first != nil %>
     <% if current_user.employee.shifts.upcoming.first.start_time.min < 10 %>
