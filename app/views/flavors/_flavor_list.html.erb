@@ -14,8 +14,10 @@
         <tr>
           <td><%= link_to flavor.name, flavor_path(flavor) %></td>
           <td>
+          <% if can? :edit, Flavor %>
             <%= link_to(edit_flavor_path(flavor), class: 'button tiny radius warning') do %>
               &nbsp;Edit&nbsp;
+            <% end %>
             <% end %>
           </td>
         </tr>

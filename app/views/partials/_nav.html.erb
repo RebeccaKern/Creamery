@@ -19,10 +19,9 @@
          <li>
             <%= link_to "Locations", stores_path %>
           </li>
-        <li>
-          
-        </li> 
+        <li><%= link_to "My Shifts", shifts_path %></li>
         <li><%= link_to "My Assignments", assignments_path %></li>
+        
         <% end %>
 
         <% if logged_in? && current_user.employee.role == 'manager' %>
